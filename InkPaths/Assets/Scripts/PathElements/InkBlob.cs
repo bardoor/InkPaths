@@ -4,7 +4,13 @@ public class InkBlob : Node
 {
     void Start()
     {
-        _stateMachine.Initialize(new PaintedState());
+        InitState();
+        InitConnections();
+    }
+
+    void InitState()
+    {
+        _stateMachine.Initialize(new UnpaintedState());
     }
 
     void Update()

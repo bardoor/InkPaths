@@ -10,7 +10,6 @@ public class StateMachine
     public void Initialize(PathElementState startState)
     {
         CurrentState = startState;
-        CurrentState.
         CurrentState.Enter();
     }
 

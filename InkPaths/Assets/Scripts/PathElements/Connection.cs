@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : PathElement
+public class Connection : PathElement
 {
-    [SerializeField] protected Connection[] _connections = new Connection[4];
-
-    private void OnMouseDrag()
-    {
-        _stateMachine.ChangeState(new PaintedState());
-    }
+    [SerializeField] protected List<Node> _connectedNodes = new List<Node>();
 
     void Start()
     {
@@ -24,4 +19,8 @@ public class Node : PathElement
         }
     }
 
+    public void AddNode(Node node)
+    {
+        _connectedNodes.Add(node);
+    }
 }

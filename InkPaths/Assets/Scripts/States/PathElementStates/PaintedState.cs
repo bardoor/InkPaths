@@ -7,13 +7,13 @@ public class PaintedState : PathElementState
     public override void Enter()
     {
         Debug.Log("Now I'm painted!");
-        element.GetComponent<SpriteRenderer>().color = Color.blue;
+        Element.GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
     public override void Exit()
     {
         Debug.Log("Now I'm not painted!");
-        element.GetComponent<SpriteRenderer>().color = Color.red;
+        Element.GetComponent<SpriteRenderer>().color = Color.red;
     }
 
 }
