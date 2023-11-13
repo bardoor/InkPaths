@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class Connection : PathElement
 {
-    [SerializeField] protected List<Node> _connectedNodes = new List<Node>();
+    protected HashSet<Node> _connectedNodes = new HashSet<Node>();
+
+    private void InitState()
+    {
+        _stateMachine.Initialize(new UnpaintedState());
+    }
+
+    private void Awake()
+    {
+        InitState();
+    }
 
     void Start()
     {
-        _stateMachine.Initialize(new UnpaintedState());
+        
     }
 
     void Update()

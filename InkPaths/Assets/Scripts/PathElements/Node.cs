@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node : PathElement
 {
-    [SerializeField] protected List<Connection> _connections = new List<Connection>();
+    protected HashSet<Connection> _connections = new HashSet<Connection>();
     
     private void OnMouseDrag()
     {
