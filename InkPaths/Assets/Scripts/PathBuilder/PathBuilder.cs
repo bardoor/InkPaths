@@ -6,9 +6,9 @@ public class PathBuilder
 {
     private static PathBuilder instance;
 
-    private Path[] _paths { get; }
+    private InkPath[] _paths { get; }
 
-    private Path _currentPath;
+    private InkPath _currentPath;
 
     private PathBuilder() { }
 
@@ -29,7 +29,7 @@ public class PathBuilder
 
     }
 
-    public void StartBuild()
+    public void StartBuild(PathElement element) 
     {
 
     }

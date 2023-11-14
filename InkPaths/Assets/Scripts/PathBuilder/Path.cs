@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// Чернильный путь.
 /// </summary>
-public class Path
+public class InkPath
 {
     /// <summary>
     /// Список элементов, из которых состоит данный путь.
@@ -26,13 +26,13 @@ public class Path
     /// <summary>
     /// Конструктор, создающий пустой путь.
     /// </summary>
-    public Path() => _pathElements = new List<PathElement>();
+    public InkPath() => _pathElements = new List<PathElement>();
     
     /// <summary>
     /// Конструктор, создающий путь на основе списка элементов пути.
     /// </summary>
     /// <param name="elements">Список элементов пути.</param>
-    public Path(List<PathElement> elements) => _pathElements = new List<PathElement>(elements);
+    public InkPath(List<PathElement> elements) => _pathElements = new List<PathElement>(elements);
 
     /// <summary>
     /// Добавляет новый элемент в путь.
@@ -49,7 +49,7 @@ public class Path
     /// Копирует путь.
     /// </summary>
     /// <returns>Копия пути.</returns>
-    public Path Copy() => new Path(_pathElements);
+    public InkPath Copy() => new InkPath(_pathElements);
 
     /// <summary>
     /// Проверяет, что путь является завершенным: начало и конец пути это чернильные точки.
