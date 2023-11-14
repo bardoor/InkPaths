@@ -17,4 +17,8 @@ public class PathElement : MonoBehaviour
         
     }
 
+    public virtual void UpdateElementsStatesAround()
+    {
+
+    }
 }
