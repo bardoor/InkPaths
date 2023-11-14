@@ -16,12 +16,12 @@ public class Path
     /// <summary>
     /// Элементы в пути.
     /// </summary>
-    public List<PathElement> PathElements { get => return new List<PathElement>(_pathElements); }
+    public List<PathElement> PathElements { get => new List<PathElement>(_pathElements); }
 
     /// <summary>
     /// Число элементов в пути.
     /// </summary>
-    public int Count { get => return _pathElements.Count(); }
+    public int Count { get => _pathElements.Count; }
 
     /// <summary>
     /// Конструктор, создающий пустой путь.
@@ -49,7 +49,7 @@ public class Path
     /// Копирует путь.
     /// </summary>
     /// <returns>Копия пути.</returns>
-    public Path Copy() => return new Path(_pathElements);
+    public Path Copy() => new Path(_pathElements);
 
     /// <summary>
     /// Проверяет, что путь является завершенным: начало и конец пути это чернильные точки.
@@ -62,6 +62,6 @@ public class Path
             return false;
         }
         
-        return (_pathElements.First() is InkBlob) && (_pathElements.Last() is IntBlob);
+        return (_pathElements[0] is InkBlob) && (_pathElements[^1] is InkBlob);
     }
 }
