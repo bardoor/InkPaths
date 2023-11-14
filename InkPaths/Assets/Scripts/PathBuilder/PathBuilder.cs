@@ -67,7 +67,7 @@ public class PathBuilder : IObservable
     {
         foreach (IObserver o in _observers)
         {
-            observer.Update(e);
+            o.Update(e);
         }
     }
 }
