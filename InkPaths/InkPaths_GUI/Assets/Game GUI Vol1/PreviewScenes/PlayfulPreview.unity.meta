@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: abd155de39a854f9a91903a1130caa6e
+timeCreated: 1501925169
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 96277
+  packageName: Game GUI Buttons
+  packageVersion: 1.0
+  assetPath: Assets/Game GUI Vol1/PreviewScenes/PlayfulPreview.unity
+  uploadId: 193958
