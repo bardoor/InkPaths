@@ -10,7 +10,7 @@ public class InkBlob : Node
 
     void InitState()
     {
-        _stateMachine.Initialize(new UnpaintedState());
+        _stateMachine.Initialize(this, new UnpaintedState());
     }
 
     void Update()
