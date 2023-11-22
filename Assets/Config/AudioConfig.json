@@ -1,0 +1,10 @@
+{
+    "Node": {
+        "PaintedState": {
+            "OnEnter": "Audio/Music/The Lost Song"
+        },
+        "UnpaintableState": {
+            "OnEnter": "Audio/Music/irma-i-know"
+        }
+    }
+}
