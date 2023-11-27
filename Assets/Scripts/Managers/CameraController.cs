@@ -5,12 +5,6 @@ using UnityEngine;
 public class MainCamera : MonoBehaviour
 {
     [SerializeField]
-    private bool frameOnStart = true;
-
-    [SerializeField]
-    private bool frameOnUpdate = true;
-
-    [SerializeField]
     private Vector3 _padding = Vector3.zero;
 
     [SerializeField]
@@ -22,17 +16,20 @@ public class MainCamera : MonoBehaviour
     [SerializeField]
     private string _framingObjectsTag = "PathElement";
 
+    private GameObject[] _framedObjects;
+
     private Camera _camera;
 
+ 
     private void Awake()
     {
         _camera = GetComponent<Camera>();
     }
 
-    void Start()
+    public void FrameLevel()
     {
-        if (frameOnStart)
-            FrameObjects(FindObjectsByType<GameObject>(FindObjectsSortMode.None));
+        GameObject[] levelObjects = GameObject.FindGameObjectsWithTag(_framingObjectsTag);
+        FrameObjects(levelObjects);
     }
 
     private void FrameObjects(GameObject[] framedObjects)
@@ -68,14 +65,8 @@ public class MainCamera : MonoBehaviour
 
         _camera.transform.position = center;
         _camera.orthographicSize = size;
-        Debug.Log("CAMERA CENTER: " + center + ", SIZE: " + size);
-    }
 
-
-    private void Update()
-    {
-        if (frameOnUpdate)
-            FrameObjects(FindObjectsByType<GameObject>(FindObjectsSortMode.None));
+        _framedObjects = framedObjects;
     }
 
 }
