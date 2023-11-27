@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using Newtonsoft.Json.Linq;
+
 
 public class AudioManager : MonoBehaviour, IStateChangeListener
 {
+    [SerializeField] private AudioClip _currentSound;
+    [SerializeField] private AudioClip _currentMusic;
     private PathElement[] _auditionElements;
-    private readonly string _pathToConfig = "Assets/Config/AudioConfig.json";
-    private JObject _config;
-    [SerializeField] private AudioClip audioClip;
-    private AudioSource audioSource;
+    private AudioSource _musicSource;
+    private AudioSource _soundSource;
 
     public void Start()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = audioClip;
+        _musicSource = gameObject.AddComponent<AudioSource>();
+        _musicSource.clip = _currentMusic;
+        _soundSource = gameObject.AddComponent<AudioSource>();
+        _soundSource.clip = _currentSound;
     }
 
     public void Init(PathElement[] auditionElements)
     {
         SubscribeToElements(auditionElements);
-        _config = GetAudioConfigJson(_pathToConfig);
     }
 
     private void SubscribeToElements(PathElement[] auditionElements)
@@ -31,18 +32,6 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
             element.Subscribe(this);
         }
         _auditionElements = auditionElements;
-
-        _config = GetAudioConfigJson(_pathToConfig);
-    }
-    private JObject GetAudioConfigJson(string pathToJson)
-    {
-        if (File.Exists(pathToJson))
-        {
-            string jsonText = File.ReadAllText(pathToJson);
-            return JObject.Parse(jsonText);
-        }
-        Debug.LogError($"File not found: {pathToJson}");
-        return null;
     }
 
     public void OnStateEnter(IStateChangeObservable element, State newState)
@@ -50,17 +39,24 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
         string moment = "OnEnter";
         string elementName = element.GetType().Name;
         string stateName = newState.GetType().Name;
-        try
+
+        _soundSource.clip = ResourceManager.LoadSound(elementName, stateName, moment);
+        PlaySound();
+    }
+
+    private void PlaySound()
+    {
+        if (!_soundSource.isPlaying)
         {
-            audioClip = Resources.Load<AudioClip>(_config[elementName][stateName][moment].ToString());
-            Debug.Log(audioClip);
-            audioSource.clip = audioClip;
-            audioSource.Play();
-            Debug.Log($"Playing {_config[elementName][stateName][moment]}");
+            _soundSource.Play();
         }
-        catch (System.Exception e)
+    }
+
+    private void PlayMusic()
+    {
+        if (!_musicSource.isPlaying)
         {
-            Debug.LogError("An error occurred: " + e.Message);
+            _musicSource.Play();
         }
     }
 }
