@@ -9,11 +9,11 @@ public static class ResourceManager
 {
     private static readonly string _levelsPath = "Assets/Prefabs/Levels";
     private static readonly string _audioConfigPath = "Assets/Config/AudioConfig.json";
-    private static JObject _audioConfig;
+    private static JObject _audioConfig = GetAudioConfigJson();
 
     static ResourceManager()
     {
-        GetAudioConfigJson();
+        // GetAudioConfigJson();
     }
 
     public static GameObject LoadLevel(int index)
@@ -21,14 +21,10 @@ public static class ResourceManager
         return AssetDatabase.LoadAssetAtPath<GameObject>($"{_levelsPath}/Level_{index}.prefab");
     }
 
-    private static void GetAudioConfigJson()
+    private static JObject GetAudioConfigJson()
     {
-        if (File.Exists(_audioConfigPath))
-        {
-            string jsonText = File.ReadAllText(_audioConfigPath);
-            _audioConfig = JObject.Parse(jsonText);
-        }
-        Debug.LogError($"File not found: {_audioConfigPath}");
+        string jsonText = File.ReadAllText(_audioConfigPath);
+        return JObject.Parse(jsonText);
     }
 
     public static AudioClip LoadSound(string elementName, string stateName, string moment)
