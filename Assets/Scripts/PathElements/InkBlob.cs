@@ -20,4 +20,9 @@ public class InkBlob : Node
             _stateMachine.CurrentState.Update();
         }
     }
+
+    void HandleDrag()
+    {
+        PathBuilder.Instance.AddElement(this);
+    }
 }

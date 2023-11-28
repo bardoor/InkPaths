@@ -10,6 +10,7 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 
     public virtual void UpdateElementsStatesAround() { }
 
+    public virtual void HandleDrag() { }
 
     public virtual void Subscribe(IStateChangeListener listener) => _listeners.Add(listener);
 
