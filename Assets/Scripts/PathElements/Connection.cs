@@ -8,7 +8,7 @@ public class Connection : PathElement
 
     private void InitState()
     {
-        _stateMachine.Initialize(this, new UnpaintedState());
+        _stateMachine.Initialize(this, PaintableState());
     }
 
     private void Awake()

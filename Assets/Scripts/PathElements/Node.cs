@@ -12,7 +12,7 @@ public class Node : PathElement
     }
     void InitState()
     {
-        _stateMachine.Initialize(this, new UnpaintedState());
+        _stateMachine.Initialize(this, new PaintableState());
     }
 
     protected void InitConnections()
