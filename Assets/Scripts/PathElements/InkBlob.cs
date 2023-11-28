@@ -21,7 +21,7 @@ public class InkBlob : Node
         }
     }
 
-    private void HandleDrag()
+    override public void HandleDrag()
     {
         PathBuilder.Instance.AddElement(this);
     }
