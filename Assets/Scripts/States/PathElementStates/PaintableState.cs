@@ -19,7 +19,7 @@ public class PaintableState : PathElementState
         switch (Element)
         {
             case Node node:
-                node.ChangeState(new PaintedState());
+                node.ChangeState(new UnpaintableState());
                 break;
             case Connection conn:
                 conn.ChangeState(new PaintingState());
