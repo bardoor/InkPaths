@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-   public void SelectLevels()
+    private readonly string MainGameSceneName = "MainGameProcess";
+    public void FastPlay()
+    {
+        SceneManager.LoadScene(MainGameSceneName);
+    }
+    public void SelectLevels()
     {
         SceneManager.LoadSceneAsync(1);
     }
