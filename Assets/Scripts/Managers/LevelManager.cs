@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-public class LevelManager : ScriptableObject
-{
+public class LevelManager : MonoBehaviour {
+
     [SerializeField]
     private GameObject _currentLevel;
     
@@ -23,6 +23,7 @@ public class LevelManager : ScriptableObject
     private void EndLevel()
     {
         Destroy(_currentLevel);
+        Debug.Log("Ended level");
         _currentLevel = null;
     }
 

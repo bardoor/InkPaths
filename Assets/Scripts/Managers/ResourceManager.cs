@@ -9,11 +9,11 @@ public static class ResourceManager
 {
     private static readonly string _levelsPath = "Assets/Prefabs/Levels";
     private static readonly string _audioConfigPath = "Assets/Config/AudioConfig.json";
-    private static JObject _audioConfig = GetAudioConfigJson();
+    private static readonly JObject _audioConfig = GetAudioConfigJson();
 
     static ResourceManager()
     {
-        // GetAudioConfigJson();
+
     }
 
     public static GameObject LoadLevel(int index)

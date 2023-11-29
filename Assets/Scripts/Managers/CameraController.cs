@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCamera : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField]
     private Vector3 _padding = Vector3.zero;
@@ -22,6 +22,11 @@ public class MainCamera : MonoBehaviour
 
  
     private void Awake()
+    {
+        Init();
+    }
+
+    public void Init()
     {
         _camera = GetComponent<Camera>();
     }
