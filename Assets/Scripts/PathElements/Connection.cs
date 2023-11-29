@@ -30,8 +30,7 @@ public class Connection : PathElement
     {
         if (_connectedNodes[0].InkColor != PathElementState.NoColor && _connectedNodes[0].InkColor == _connectedNodes[1].InkColor)
         {
-            Debug.Log("FUCUCUCUUDUCDUFDF");
-            ChangeState(new PaintedState());
+            ChangeState(new UnpaintableState());
         }
     }
 
@@ -45,7 +44,10 @@ public class Connection : PathElement
 
     public override void SetUnpaintableAround()
     {
-        throw new System.NotImplementedException();
+        foreach (Node node in _connectedNodes)
+        {
+            node.ChangeState(new UnpaintableState());
+        }
     }
 
     public override void HandleTouch()
