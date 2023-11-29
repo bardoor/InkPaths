@@ -8,8 +8,6 @@ public class TouchManager : MonoBehaviour
 
     private bool _isTouching = false;
 
-    private RaycastHit2D[] hits;
-
     private void Awake()
     {
         _action = new TouchAction();
@@ -42,14 +40,14 @@ public class TouchManager : MonoBehaviour
         _isTouching = true;
 
         RaycastHit2D[] hits = GetCurrentRaycastHits();
-        // Судя по всему в меню нельзя нажать куда-нибудь, чтобы задеть 2 объекта,
-        // в самой игре 2 объекта задевается при нажатии на мост и соединение, но
-        // такой случай нам тоже не подходит
+        // РЎСѓРґСЏ РїРѕ РІСЃРµРјСѓ РІ РјРµРЅСЋ РЅРµР»СЊР·СЏ РЅР°Р¶Р°С‚СЊ РєСѓРґР°-РЅРёР±СѓРґСЊ, С‡С‚РѕР±С‹ Р·Р°РґРµС‚СЊ 2 РѕР±СЉРµРєС‚Р°,
+        // РІ СЃР°РјРѕР№ РёРіСЂРµ 2 РѕР±СЉРµРєС‚Р° Р·Р°РґРµРІР°РµС‚СЃСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РјРѕСЃС‚ Рё СЃРѕРµРґРёРЅРµРЅРёРµ, РЅРѕ
+        // С‚Р°РєРѕР№ СЃР»СѓС‡Р°Р№ РЅР°Рј С‚РѕР¶Рµ РЅРµ РїРѕРґС…РѕРґРёС‚
         if (hits.Length == 1)
         {
             if (hits[0].collider.TryGetComponent<InkBlob>(out InkBlob blob)) {
                 Debug.Log("Ink blob here!!!!");
-                blob.HandleDrag();
+                blob.HandleTouch();
             }
         }
     }
@@ -69,7 +67,10 @@ public class TouchManager : MonoBehaviour
             {
                 if (hit.collider == null) continue;
 
-                // Debug.Log(hit.collider.GetType().Name);
+                if (hit.collider.TryGetComponent<PathElement>(out PathElement pathElement))
+                {
+                    pathElement.HandleTouch();
+                }
             }
         }
     }
