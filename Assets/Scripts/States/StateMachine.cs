@@ -10,6 +10,7 @@ public class StateMachine
     public void Initialize(PathElement element, PathElementState startState)
     {
         _element = element;
+        startState.Element = element;
         CurrentState = startState;
         CurrentState.Enter();
     }
@@ -20,6 +21,7 @@ public class StateMachine
             return;
 
         CurrentState.Exit();
+        newState.Element = _element;
         CurrentState = newState;
         CurrentState.Enter();
         _element.ReportStateChanged();
