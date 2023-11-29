@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 public class Connection : PathElement
 {
-    protected HashSet<Node> _connectedNodes = new HashSet<Node>();
+    protected List<Node> _connectedNodes = new List<Node>();
+    public List<Node> ConnectedNodes { get { return _connectedNodes; } }
 
     private void InitState()
     {
@@ -16,21 +18,41 @@ public class Connection : PathElement
         InitState();
     }
 
-    void Start()
+    public void AddNode(Node node)
     {
-        
-    }
-
-    void Update()
-    {
-        if (_stateMachine.CurrentState != null)
+        if (!_connectedNodes.Contains(node))
         {
-            _stateMachine.CurrentState.Update();
+            _connectedNodes.Add(node);
         }
     }
 
-    public void AddNode(Node node)
+    public void Update()
     {
-        _connectedNodes.Add(node);
+        if (_connectedNodes[0].InkColor != PathElementState.NoColor && _connectedNodes[0].InkColor == _connectedNodes[1].InkColor)
+        {
+            ChangeState(new UnpaintableState());
+        }
+    }
+
+    public override void SetPaintableAround()
+    {
+        foreach (Node node in _connectedNodes)
+        {
+            node.ChangeState(new PaintableState());
+        }
+    }
+
+    public override void SetUnpaintableAround()
+    {
+        foreach (Node node in _connectedNodes)
+        {
+            node.ChangeState(new UnpaintableState());
+        }
+    }
+
+    public override void HandleTouch()
+    {
+        PathBuilder.Instance.AddElement(this);
+        _stateMachine.CurrentState.HandleTouch();
     }
 }

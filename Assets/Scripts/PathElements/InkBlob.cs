@@ -13,16 +13,19 @@ public class InkBlob : Node
         _stateMachine.Initialize(this, new PaintableState());
     }
 
-    void Update()
+    public override void SetPaintableAround()
     {
-        if (_stateMachine.CurrentState != null)
+        foreach (Connection conn in _connections)
         {
-            _stateMachine.CurrentState.Update();
+            conn.ChangeState(new PaintableState());
         }
     }
 
-    private void HandleDrag()
+    public override void SetUnpaintableAround()
     {
-        PathBuilder.Instance.AddElement(this);
+        foreach (Connection conn in _connections)
+        {
+            conn.ChangeState(new UnpaintableState());
+        }
     }
 }

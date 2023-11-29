@@ -38,7 +38,12 @@ public class InkPath
     /// Добавляет новый элемент в путь.
     /// </summary>
     /// <param name="element">Новый элемент.</param>
-    public void AddElement(PathElement element) => _pathElements.Add(element);
+    public void AddElement(PathElement element)
+    {
+        if (_pathElements.Contains(element)) return;
+        Debug.Log("PATH BUILDER: " + element.GetType().Name);
+        _pathElements.Add(element);
+    }
 
     /// <summary>
     /// Удаляет все элементы из пути.

@@ -6,10 +6,13 @@ public class Node : PathElement
 {
     protected HashSet<Connection> _connections = new HashSet<Connection>();
     
+    /*
     private void OnMouseDrag()
     {
         _stateMachine.ChangeState(new PaintedState());
     }
+    */
+
     void InitState()
     {
         _stateMachine.Initialize(this, new PaintableState());
@@ -35,19 +38,25 @@ public class Node : PathElement
         InitConnections();
     }
 
-    void Start()
+    public override void SetPaintableAround()
     {
-        
-    }
-
-    
-
-    void Update()
-    {
-        if (_stateMachine.CurrentState != null)
+        foreach (Connection conn in _connections)
         {
-            _stateMachine.CurrentState.Update();
+            conn.ChangeState(new PaintableState());
         }
     }
 
+    public override void SetUnpaintableAround()
+    {
+        foreach (Connection conn in _connections)
+        {
+            conn.ChangeState(new UnpaintableState());
+        }
+    }
+
+    public override void HandleTouch()
+    {
+        PathBuilder.Instance.AddElement(this);
+        _stateMachine.CurrentState.HandleTouch();
+    }
 }

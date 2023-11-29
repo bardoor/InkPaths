@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
     protected StateMachine _stateMachine = new StateMachine();
     protected List<IStateChangeListener> _listeners { get; } = new List<IStateChangeListener>();
-    protected Color _inkColor { get; set; }
+    public Color InkColor { get; set; }
 
-    public virtual void UpdateElementsStatesAround() { }
+    public abstract void SetPaintableAround();
 
-    public virtual void HandleDrag() { }
+    public abstract void SetUnpaintableAround();
+
+    public abstract void HandleTouch();
 
     public virtual void Subscribe(IStateChangeListener listener) => _listeners.Add(listener);
 
@@ -20,8 +23,13 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     {
         foreach (IStateChangeListener listener in _listeners)
         {
+            Debug.Log("Element " + GetType().Name + " is in " + _stateMachine.CurrentState.GetType().Name);
             listener.OnStateEnter(this, _stateMachine.CurrentState);
         }
     }
    
+    public virtual void ChangeState(PathElementState state)
+    {
+        _stateMachine.ChangeState(state);
+    }
 }
