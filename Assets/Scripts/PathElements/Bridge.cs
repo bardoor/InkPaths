@@ -4,13 +4,4 @@ using UnityEngine;
 
 public class Bridge : Connection
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
