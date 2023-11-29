@@ -54,6 +54,11 @@ public class TouchManager : MonoBehaviour
 
     private void EndTouch(InputAction.CallbackContext ctx)
     {
+        if (!PathBuilder.Instance.IsFinishedPath())
+        {
+            PathBuilder.Instance.CancelBuilding();
+        }
+
         _isTouching = false;
     }
 
