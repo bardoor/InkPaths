@@ -29,32 +29,46 @@ public class PathBuilder : IObservable
             return _instance;
         }
     }
-    
+
+    public bool IsFinishedPath()
+    {
+        return _currentPath.IsFinishedPath();
+    }
+
     public void CancelBuilding()
     {
-        // Очистить активный путь
+        Debug.Log("CANCELLED FUCKIN PATH");
+
+        foreach (PathElement pathElement in _currentPath.PathElements)
+        {
+            pathElement.SetUnpaintableAround();
+        }
+
+        // РћС‡РёСЃС‚РёС‚СЊ Р°РєС‚РёРІРЅС‹Р№ РїСѓС‚СЊ
         _currentPath.Clear();
 
-        // Уведомить слушателей, что путь разрушился
+        // РЈРІРµРґРѕРјРёС‚СЊ СЃР»СѓС€Р°С‚РµР»РµР№, С‡С‚Рѕ РїСѓС‚СЊ СЂР°Р·СЂСѓС€РёР»СЃСЏ
         NotifyObservers(new CancelledBuildingPath());
     }
 
     public void AddElement(PathElement element)
     {
-        // Добавить новый элемент в конец активного пути
+        // Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† Р°РєС‚РёРІРЅРѕРіРѕ РїСѓС‚Рё
         _currentPath.AddElement(element);
 
-        // Обновить состояние элементов, окружающих последний добавленный элемент
-        element.UpdateElementsStatesAround();
+        // РћР±РЅРѕРІРёС‚СЊ СЃРѕСЃС‚РѕСЏРЅРёРµ СЌР»РµРјРµРЅС‚РѕРІ, РѕРєСЂСѓР¶Р°СЋС‰РёС… РїРѕСЃР»РµРґРЅРёР№ РґРѕР±Р°РІР»РµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
+        // element.SetPaintableAround();
 
-        // Если активный путь является законченным путем...
-        if (_currentPath.IsFinishedPath())
+        // Р•СЃР»Рё Р°РєС‚РёРІРЅС‹Р№ РїСѓС‚СЊ СЏРІР»СЏРµС‚СЃСЏ Р·Р°РєРѕРЅС‡РµРЅРЅС‹Рј РїСѓС‚РµРј...
+        if (IsFinishedPath())
         {
-            // ...поместить активный путь в список созданных путей
+            Debug.Log("BUILT FUCKIN PATH");
+
+            // ...РїРѕРјРµСЃС‚РёС‚СЊ Р°РєС‚РёРІРЅС‹Р№ РїСѓС‚СЊ РІ СЃРїРёСЃРѕРє СЃРѕР·РґР°РЅРЅС‹С… РїСѓС‚РµР№
             _paths.Add(_currentPath.Copy());
-            // ...очистить активный путь
+            // ...РѕС‡РёСЃС‚РёС‚СЊ Р°РєС‚РёРІРЅС‹Р№ РїСѓС‚СЊ
             _currentPath.Clear();
-            // ...уведомить слушателей, что создался новый путь
+            // ...СѓРІРµРґРѕРјРёС‚СЊ СЃР»СѓС€Р°С‚РµР»РµР№, С‡С‚Рѕ СЃРѕР·РґР°Р»СЃСЏ РЅРѕРІС‹Р№ РїСѓС‚СЊ
             NotifyObservers(new FinishedBuildingPath());
         }
     }
