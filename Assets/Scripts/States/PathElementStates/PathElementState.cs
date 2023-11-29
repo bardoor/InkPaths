@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class PathElementState : State
 {
-    protected PathElement Element { get; set; }
+    public static Color NoColor { get { return Color.clear; } }
+
+    public PathElement Element { get; set; }
+
+    public abstract void HandleTouch();
 }
