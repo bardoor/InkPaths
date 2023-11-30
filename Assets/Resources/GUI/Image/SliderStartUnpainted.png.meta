@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 17880c43b365d7d46b8f49343e483226
+guid: 08999505cfc48194581175cf84b58b38
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4252511913215341350
-    second: StarSliderOut_0
+      213: 4163163563450489151
+    second: SliderStartUnpainted_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StarSliderOut_0
+      name: SliderStartUnpainted_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 54
-        height: 53
+        width: 4232
+        height: 336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6233156ed05f30b30800000000000000
-      internalID: 4252511913215341350
+      spriteID: f39d05d143786c930800000000000000
+      internalID: 4163163563450489151
       vertices: []
       indices: 
       edges: []

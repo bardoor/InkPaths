@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2880d05e7bb2aaf44af10d5d5a23a758
+guid: 9941a546b908c70458ee95065f93b015
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5898292100386375521
-    second: StartSliderIn_0
+      213: -5829624326612914822
+    second: SliderStar_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StartSliderIn_0
+      name: SliderStar_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 52
-        height: 50
+        width: 4194
+        height: 298
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 167c5013a61fad150800000000000000
-      internalID: 5898292100386375521
+      spriteID: a7de246cf83091fa0800000000000000
+      internalID: -5829624326612914822
       vertices: []
       indices: 
       edges: []
