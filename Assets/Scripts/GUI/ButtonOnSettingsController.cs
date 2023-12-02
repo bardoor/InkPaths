@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class ButtonOnSettingsController : MonoBehaviour
 {
-    private float _sliderValue = 100;
     public Slider slider;
 
-    public void SliderOff()
+    private float _sliderValue;
+
+    private void Start()
     {
-        this._sliderValue = slider.value;
-        slider.value = 0;
+        _sliderValue = slider.value;
     }
 
-    public void SliderOn()
+    public void SoundOff()
+    {
+        this._sliderValue = slider.value;
+        slider.value = 0f;
+    }
+
+    public void SoundOn()
     {
         slider.value = _sliderValue;
     }

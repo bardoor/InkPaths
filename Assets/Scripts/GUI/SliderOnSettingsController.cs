@@ -1,29 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SliderOnSettingsController : MonoBehaviour
 {
-    public Text valueText;
+    public TextMeshProUGUI valueText;
+    public GameObject buttonMax;
+    public GameObject buttonMedium;
     public GameObject buttonOff;
-    public GameObject buttonOn;
+
+    private float _sliderValue;
 
     public void SliderChange(float value)
     {
-        valueText.text = value.ToString();
-        valueText.text += " %";
+        gameObject.GetComponent<Slider>().minValue = 0f;
+        gameObject.GetComponent<Slider>().maxValue = 100f;
+        gameObject.GetComponent<Slider>().wholeNumbers = true;
 
-        if(value > 0)
+        valueText.text = value.ToString() + " %";
+        this._sliderValue = value;
+
+        ActiveButtons();
+    }
+
+    private void ActiveButtons()
+    {
+        if(this._sliderValue >= 50f)
         {
+            buttonMax.SetActive(true);
+            buttonMedium.SetActive(false);
             buttonOff.SetActive(false);
-            buttonOn.SetActive(true);
+        }
+        else if(this._sliderValue > 0)
+        {
+            buttonMax.SetActive(false);
+            buttonMedium.SetActive(true);
+            buttonOff.SetActive(false);
         }
         else
         {
+            buttonMax.SetActive(false);
+            buttonMedium.SetActive(false);
             buttonOff.SetActive(true);
-            buttonOn.SetActive(false);
         }
     }
 }
