@@ -10,6 +10,8 @@ public class TimerController2 : MonoBehaviour
 {
     public TextMeshProUGUI text;
     public float maxValueTimer = 100f;
+    public GameObject pausePanel;
+
     void Start()
     {
         gameObject.GetComponent<Slider>().minValue = 0f;
@@ -19,26 +21,29 @@ public class TimerController2 : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(gameObject.GetComponent<Slider>().value > 0f)
+        if (!pausePanel.activeSelf)
         {
-            float timerValue = Mathf.Ceil(gameObject.GetComponent<Slider>().value);
+            if (gameObject.GetComponent<Slider>().value > 0f)
+            {
+                float timerValue = Mathf.Ceil(gameObject.GetComponent<Slider>().value);
 
-            if (gameObject.GetComponent<Slider>().value > maxValueTimer * 0.2f)
-                text.text = timerValue.ToString();
+                if (gameObject.GetComponent<Slider>().value > maxValueTimer * 0.2f)
+                    text.text = timerValue.ToString();
+                else
+                {
+                    Color textColor = new Color(249f / 255f, 100f / 255f, 111f / 255f, 1f);
+                    text.color = textColor;
+                    text.text = timerValue.ToString();
+                }
+
+                gameObject.GetComponent<Slider>().value -= Time.deltaTime;
+
+            }
             else
             {
-                Color textColor = new Color(249f / 255f, 100f / 255f, 111f / 255f, 1f);
-                text.color = textColor;
-                text.text = timerValue.ToString();
+                Debug.Log("Timer's expired");
+                gameObject.SetActive(false);
             }
-
-            gameObject.GetComponent<Slider>().value -= Time.deltaTime;
-
-        }
-        else
-        {
-            Debug.LogAssertion("Timer's expired");
-            gameObject.SetActive(false);
         }
         
     }
