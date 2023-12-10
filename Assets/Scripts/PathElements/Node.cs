@@ -5,17 +5,11 @@ using UnityEngine;
 public class Node : PathElement
 {
     protected HashSet<Connection> _connections = new HashSet<Connection>();
-    
-    /*
-    private void OnMouseDrag()
-    {
-        _stateMachine.ChangeState(new PaintedState());
-    }
-    */
 
     void InitState()
     {
-        _stateMachine.Initialize(this, new PaintableState());
+        _colorabiltyStateMachine.Initialize(this, new UnpaintableState());
+        _colorationStateMachine.Initialize(this, new UnpaintedState());
     }
 
     protected void InitConnections()
@@ -40,23 +34,16 @@ public class Node : PathElement
 
     public override void SetPaintableAround()
     {
-        foreach (Connection conn in _connections)
-        {
-            conn.ChangeState(new PaintableState());
-        }
+        throw new System.NotImplementedException();
     }
 
     public override void SetUnpaintableAround()
     {
-        foreach (Connection conn in _connections)
-        {
-            conn.ChangeState(new UnpaintableState());
-        }
+        throw new System.NotImplementedException();
     }
 
     public override void HandleTouch()
     {
-        PathBuilder.Instance.AddElement(this);
-        _stateMachine.CurrentState.HandleTouch();
+        throw new System.NotImplementedException();
     }
 }
