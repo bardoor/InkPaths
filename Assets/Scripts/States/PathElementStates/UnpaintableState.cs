@@ -6,16 +6,16 @@ public class UnpaintableState : PathElementState
 {
     public override void Enter()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Exit()
-    {
-        throw new System.NotImplementedException();
+        Debug.Log($"{Element.name} entered PaintableState!!!");
     }
 
     public override void HandleTouch()
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"{Element.name} handling touch!!!");
+    }
+
+    public override void Exit()
+    {
+        Debug.Log($"{Element.name} exit PaintableState!!!");
     }
 }
