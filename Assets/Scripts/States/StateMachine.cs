@@ -13,8 +13,9 @@ public class StateMachine
     public void SetValidStateTransitions(Type[] stateTransitionCycle)
     {
         _validStateTransitions = stateTransitionCycle
-            .Zip(stateTransitionCycle.Skip(1), (curState, nextState) => new {key = curState, value = nextState})
-            .ToDictionary(pair => pair.key, pair => new Type[] { pair.value });
+            .Concat(new[] { stateTransitionCycle.First() })
+            .Zip(stateTransitionCycle, (curState, nextState) => new { Key = curState, Value = nextState })
+            .ToDictionary(pair => pair.Key, pair => new Type[] { pair.Value });
     }
 
     public bool TransitionIsValid(State newState)

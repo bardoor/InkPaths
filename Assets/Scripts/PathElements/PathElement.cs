@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Android.Gradle;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
@@ -60,6 +61,33 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     {
         _colorabiltyStateMachine.CurrentState.HandleTouch();
         _colorationStateMachine.CurrentState.HandleTouch();
+    }
+
+    public virtual void SetPaintableAround() { }
+    public virtual void SetUnpaintableAround() { }
+
+    protected void InitCollider()
+    {
+        Image image = GetComponent<Image>();
+        Collider2D collider = GetComponent<Collider2D>();
+
+        if (image != null && collider != null)
+        {
+            if (collider as BoxCollider2D)
+            {
+                BoxCollider2D boxCollider = (BoxCollider2D)collider;
+                boxCollider.size = new Vector2(image.rectTransform.rect.width, image.rectTransform.rect.height);
+            }
+            else if (collider as CapsuleCollider2D)
+            {
+                CapsuleCollider2D boxCollider = (CapsuleCollider2D)collider;
+                boxCollider.size = new Vector2(image.rectTransform.rect.width, image.rectTransform.rect.height);
+            }
+        }
+        else
+        {
+            Debug.LogError("Image or Collider2D component not found on the GameObject.");
+        }
     }
 
 

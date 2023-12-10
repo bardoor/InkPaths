@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Node : PathElement
 {
     protected HashSet<Connection> _connections = new HashSet<Connection>();
-    protected Type[] _validColorabilityStateCycle = new Type[] { typeof(UnpaintableState), typeof(PaintableState) };
-    protected Type[] _validColorationStateCycle = new Type[] { typeof(UnpaintedState), typeof(PaintedState) };
+    protected readonly Type[] _validColorabilityStateCycle = new Type[] { typeof(UnpaintableState), typeof(PaintableState) };
+    protected readonly Type[] _validColorationStateCycle = new Type[] { typeof(UnpaintedState), typeof(PaintedState) };
 
-    void InitState()
+    private void InitState()
     {
         _colorabiltyStateMachine.SetValidStateTransitions(_validColorabilityStateCycle);
         _colorabiltyStateMachine.Initialize(this, new UnpaintableState());
@@ -30,11 +31,19 @@ public class Node : PathElement
             _connections.Add(interconnection);
             interconnection.AddNode(GetComponent<Node>());
         }
+
+        Debug.LogAssertion($"~~~~~~{gameObject.name}~~~~~~");
+        _connections.ToList().ForEach(element => Debug.Log((element)));
     }
 
     private void Awake()
     {
+        InitCollider();
         InitState();
+    }
+
+    private void Start()
+    {
         InitConnections();
     }
 
