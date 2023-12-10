@@ -3171,6 +3171,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -8.999939
       objectReference: {fileID: 0}
+    - target: {fileID: 3693696229279862865, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3788379595693805998, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
       propertyPath: m_Name
       value: Left Bot Ink

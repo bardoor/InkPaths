@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    public float scrollSpeed = 0.5f; // —корость прокрутки текстуры
+    public float scrollSpeed = 0.5f; 
 
-    Material material; // —сылка на материал спрайта
+    Material material;
 
     void Start()
     {
