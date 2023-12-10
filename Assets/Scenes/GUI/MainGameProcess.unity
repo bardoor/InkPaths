@@ -3187,13 +3187,29 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.99816895
       objectReference: {fileID: 0}
+    - target: {fileID: 5986096627345536103, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_Size.x
+      value: 710.0995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986096627345536103, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_Size.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986096627345536103, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.5348053
+      objectReference: {fileID: 0}
+    - target: {fileID: 5986096627345536103, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6047667277450149518, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
       propertyPath: m_Name
       value: Center Connection
       objectReference: {fileID: 0}
     - target: {fileID: 6129806420946547023, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.99816895
+      value: -0.87872314
       objectReference: {fileID: 0}
     - target: {fileID: 6529940312881670314, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
       propertyPath: m_Name
@@ -3322,6 +3338,10 @@ PrefabInstance:
     - target: {fileID: 8701250375382788793, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
       propertyPath: m_Name
       value: Left Bottom Connection
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197275224080830842, guid: 246ac43f90a226444a496cb25a1250ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
