@@ -41,12 +41,19 @@ public class StateMachine
         return validTransitions;
     }
 
-    public virtual void Initialize(PathElement element, PathElementState startState)
+    public virtual bool Initialize(PathElement element, PathElementState startState)
     {
         _element = element;
         startState.Element = element;
         CurrentState = startState;
-        CurrentState.Enter();
+        
+        if (_validStateTransitions.ContainsKey(startState.GetType()))
+        {
+            CurrentState.Enter();
+            return true;
+        }
+        
+        return false;
     }
 
     public virtual bool ChangeState(PathElementState newState)
@@ -59,7 +66,6 @@ public class StateMachine
         CurrentState = newState;
         CurrentState.Enter();
         _element.ReportStateChanged();
-
         return true;
     }
 }
