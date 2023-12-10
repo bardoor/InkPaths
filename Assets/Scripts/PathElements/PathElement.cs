@@ -7,11 +7,8 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
     protected StateMachine _colorabiltyStateMachine = new StateMachine();
     protected StateMachine _colorationStateMachine = new StateMachine();
-
     protected List<IStateChangeListener> _listeners { get; } = new List<IStateChangeListener>();
     public Color InkColor { get; set; }
-
-
 
     public virtual void Subscribe(IStateChangeListener listener) => _listeners.Add(listener);
 
@@ -36,7 +33,7 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     // И поэтому, чуть ниже, под собачий, волчий вой,
     // Непременно ты увидишь public метод золотой
     // За тебя он пусть решает - расслабляй свою мозгу!
-    // Да благодари разраба, коль купаешься в жиру!  
+    // Да благодари разраба, коль купаешься в жиру!
     protected virtual void ChangeColorationState(PathElementState state)
     {
         _colorationStateMachine.ChangeState(state);
@@ -59,4 +56,15 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         }
     }
 
+    public virtual void HandleTouch()
+    {
+        _colorabiltyStateMachine.CurrentState.HandleTouch();
+        _colorationStateMachine.CurrentState.HandleTouch();
+    }
+
+
+    // Здесь и померли когда-то
+    // Славных три богатыря
+    // Чтобы в коде разобраться
+    // Надо копоти подда..
 }
