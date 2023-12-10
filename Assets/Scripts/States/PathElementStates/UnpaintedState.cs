@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaintedState : PathElementState
+public class UnpaintedState : PathElementState
 {
     public override void Enter()
     {

@@ -1,22 +1,21 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnpaintableState : PathElementState
 {
     public override void Enter()
     {
-        Debug.Log(Element.GetType().Name + "Entered state Unpaintable");
+        throw new System.NotImplementedException();
     }
 
     public override void Exit()
     {
-        Debug.Log(Element.GetType().Name + "Exited state Unpaintable");
+        throw new System.NotImplementedException();
     }
 
     public override void HandleTouch()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
