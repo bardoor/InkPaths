@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Node : PathElement
 {
     protected HashSet<Connection> _connections = new HashSet<Connection>();
+    protected Type[] _validColorabilityStateCycle = new Type[] { typeof(UnpaintableState), typeof(PaintableState) };
+    protected Type[] _validColorationStateCycle = new Type[] { typeof(UnpaintedState), typeof(PaintedState) };
 
     void InitState()
     {
+        _colorabiltyStateMachine.SetValidStateTransitions(_validColorabilityStateCycle);
         _colorabiltyStateMachine.Initialize(this, new UnpaintableState());
+
+        _colorationStateMachine.SetValidStateTransitions(_validColorationStateCycle);
         _colorationStateMachine.Initialize(this, new UnpaintedState());
     }
 
@@ -32,18 +38,4 @@ public class Node : PathElement
         InitConnections();
     }
 
-    public override void SetPaintableAround()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void SetUnpaintableAround()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void HandleTouch()
-    {
-        throw new System.NotImplementedException();
-    }
 }
