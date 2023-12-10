@@ -45,7 +45,8 @@ public class TouchManager : MonoBehaviour
         // такой случай нам тоже не подходит
         if (hits.Length == 1)
         {
-            if (hits[0].collider.TryGetComponent<InkBlob>(out InkBlob blob)) {
+            if (hits[0].collider.TryGetComponent<InkBlob>(out InkBlob blob)) 
+            {
                 Debug.Log("Ink blob here!!!!");
                 blob.HandleTouch();
             }

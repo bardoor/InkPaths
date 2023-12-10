@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 5800689538718947579}
   - component: {fileID: 7178270955571569663}
   - component: {fileID: 4146405212608698200}
+  - component: {fileID: 6552102346366212885}
   m_Layer: 5
   m_Name: InkBlobBounding
   m_TagString: Untagged
@@ -151,3 +152,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6552102346366212885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6731256650937994527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa2dd12dd50be142928cb1200e31aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
