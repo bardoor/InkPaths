@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour {
 
     private GameObject _currentLevel;
 
-    [SerializeField] private float topMarginPercentage = 10f;
+    private float topMarginPercentage = 5f;
 
     private void OnEnable()
     {
