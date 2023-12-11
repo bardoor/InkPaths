@@ -8,48 +8,33 @@ public class StateMachine
 {
     public PathElementState CurrentState { get; set; }
     private PathElement _element;
-    private Dictionary<Type, Type[]> _validStateTransitions;
 
-    public void SetValidStateTransitions(Type[] stateTransitionCycle)
+    // публичный, иначе не работает IsValidTransition
+    public static readonly Dictionary<Type, Type[]> validStateTransitions = new Dictionary<Type, Type[]>()
     {
-        _validStateTransitions = stateTransitionCycle
-            .Concat(new[] { stateTransitionCycle.First() })
-            .Zip(stateTransitionCycle, (curState, nextState) => new { Key = curState, Value = nextState })
-            .ToDictionary(pair => pair.Key, pair => new Type[] { pair.Value });
-    }
+        { typeof(PaintedState), new Type[]{ typeof(UnpaintableState) } },
+        { typeof(UnpaintableState), new Type[]{ typeof(PaintableState) } },
+        { typeof(PaintableState), new Type[] { typeof(UnpaintableState), typeof(PaintedState) } }
+    };
 
-    public bool TransitionIsValid(State newState)
+    public bool IsValidTransition(State newState)
     {
         return IsValidTransition(CurrentState, newState);
     }
 
-    private bool IsValidTransition(State startState, State nextState)
+    public static bool IsValidTransition(State startState, State nextState)
     {
-        Type[] validTransitions = GetValidTransitions(startState);
+        Type[] validTransitions = validStateTransitions[startState.GetType()];
         return validTransitions.Contains(nextState.GetType());
-    }
-
-    private Type[] GetValidTransitions(State startState)
-    {
-        Type startStateType = startState.GetType();
-        Type[] validTransitions = new Type[] { };
-
-        if (_validStateTransitions.ContainsKey(startStateType))
-        {
-            validTransitions = _validStateTransitions[startStateType];
-        }
-
-        return validTransitions;
     }
 
     public virtual bool Initialize(PathElement element, PathElementState startState)
     {
-        _element = element;
-        startState.Element = element;
-        CurrentState = startState;
-        
-        if (_validStateTransitions.ContainsKey(startState.GetType()))
+        if (validStateTransitions.ContainsKey(startState.GetType()))
         {
+            _element = element;
+            startState.Element = element;
+            CurrentState = startState;
             CurrentState.Enter();
             return true;
         }
@@ -59,7 +44,7 @@ public class StateMachine
 
     public virtual bool ChangeState(PathElementState newState)
     {
-        if (!IsValidTransition(CurrentState, newState))
+        if (!IsValidTransition(newState))
             return false;
 
         CurrentState.Exit();
