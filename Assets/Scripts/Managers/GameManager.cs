@@ -7,15 +7,14 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     private static AudioManager _audioManager;
     private static LevelManager _levelManager;
-    private static CameraController _mainCamera;
     private static GUIManager _guiManager;
+    private static TouchManager _touchManager;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -26,16 +25,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //InitCamera();
         InitLevelManager();
         InitGuiManager();
+        InitTouchManager();
     }
 
     private void StartLevel(int index)
     {
-        //InitCamera();
-        //_levelManager.StartLevel(index);
-        //_mainCamera.FrameLevel();
+        _levelManager.StartLevel(index);
         InitAudioManager();
     }
 
@@ -51,19 +48,17 @@ public class GameManager : MonoBehaviour
         _levelManager = gameObject.AddComponent<LevelManager>();
     }
 
-    private void InitCamera()
-    {
-        _mainCamera = FindAnyObjectByType<CameraController>();
-        _mainCamera.Init();
-    }
-
     private void InitGuiManager()
     {
         _guiManager = new GUIManager();
         GUIManager.OnButtonClick += HandleButtonClick;
     }
 
-    // Метод, который будет вызываться при нажатии кнопок
+    private void InitTouchManager()
+    {
+        _touchManager = gameObject.AddComponent<TouchManager>();
+    }
+
     private void HandleButtonClick(string buttonName)
     {
         if (buttonName == "StartButton")
@@ -71,6 +66,4 @@ public class GameManager : MonoBehaviour
             StartLevel(1);
         }
     }
-
-
 }

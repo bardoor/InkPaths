@@ -15,7 +15,6 @@ public class GUIManager : ScriptableObject {
             string buttonName = button.gameObject.name; 
             button.onClick.AddListener(() => HandleButtonClick(buttonName));
         }
-        Debug.Log($"Found buttons {buttons.Length}");
     }
 
     private void HandleButtonClick(string buttonName)

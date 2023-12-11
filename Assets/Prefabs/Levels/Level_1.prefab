@@ -58,11 +58,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 451636150664930086, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Name
-      value: VertConnection (1)
+      value: Left Top Connection
       objectReference: {fileID: 0}
     - target: {fileID: 3214849368642588950, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.009216309
+      value: -0.009277344
       objectReference: {fileID: 0}
     - target: {fileID: 7930187626373406119, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Pivot.x
@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731256650937994527, guid: ad885de324549aa4799b6906a73d3da3, type: 3}
       propertyPath: m_Name
-      value: InkBlobBounding (1)
+      value: Right Bottom Ink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -346,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.9981079
+      value: -0.99816895
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -364,9 +364,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2793374475854377896, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.5012016
+      objectReference: {fileID: 0}
     - target: {fileID: 5504673260001887937, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_Name
-      value: HorizConnectionBounding (2)
+      value: Center Connection
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -400,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3335056712918873323, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_Name
-      value: NodeBounding
+      value: Left Center Node
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_Pivot.x
@@ -468,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8
+      value: 13.165634
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -590,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731256650937994527, guid: ad885de324549aa4799b6906a73d3da3, type: 3}
       propertyPath: m_Name
-      value: InkBlobBounding (3)
+      value: Right Top Ink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -704,7 +708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731256650937994527, guid: ad885de324549aa4799b6906a73d3da3, type: 3}
       propertyPath: m_Name
-      value: InkBlobBounding (2)
+      value: Left Top Ink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -786,7 +790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.9981079
+      value: -0.8786621
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -804,9 +808,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2250729679191088689, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_Size.x
+      value: 710.0995
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250729679191088689, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_Size.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250729679191088689, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.5348053
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250729679191088689, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2793374475854377896, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.5012016
+      objectReference: {fileID: 0}
     - target: {fileID: 5504673260001887937, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_Name
-      value: HorizConnectionBounding
+      value: Top Center Connection
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -888,7 +912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.9981079
+      value: -0.99816895
       objectReference: {fileID: 0}
     - target: {fileID: 1819353004930259737, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -906,9 +930,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2793374475854377896, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.5012016
+      objectReference: {fileID: 0}
     - target: {fileID: 5504673260001887937, guid: c40cfd0f6f66dff4b902c5a73281e237, type: 3}
       propertyPath: m_Name
-      value: HorizConnectionBounding (1)
+      value: Bottom Center Connection
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -938,7 +966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3335056712918873323, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_Name
-      value: NodeBounding
+      value: Right Center Node
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_Pivot.x
@@ -1006,7 +1034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 13.165656
       objectReference: {fileID: 0}
     - target: {fileID: 8187098566340429518, guid: 1bca63da541f69641a65b354fbd2776a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1040,11 +1068,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 451636150664930086, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Name
-      value: VertConnection (3)
+      value: Right Bottom Connection
       objectReference: {fileID: 0}
     - target: {fileID: 3214849368642588950, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.009216309
+      value: -0.009277344
       objectReference: {fileID: 0}
     - target: {fileID: 7930187626373406119, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Pivot.x
@@ -1246,7 +1274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6731256650937994527, guid: ad885de324549aa4799b6906a73d3da3, type: 3}
       propertyPath: m_Name
-      value: InkBlobBounding
+      value: Left Bot Ink
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1268,11 +1296,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 451636150664930086, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Name
-      value: VertConnection (2)
+      value: Right Top Connection
       objectReference: {fileID: 0}
     - target: {fileID: 3214849368642588950, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.009216309
+      value: -0.009277344
       objectReference: {fileID: 0}
     - target: {fileID: 7930187626373406119, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Pivot.x
@@ -1386,11 +1414,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 451636150664930086, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Name
-      value: VertConnection
+      value: Left Bottom Connection
       objectReference: {fileID: 0}
     - target: {fileID: 3214849368642588950, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.009216309
+      value: -0.009277344
       objectReference: {fileID: 0}
     - target: {fileID: 7930187626373406119, guid: 45411a4694191fb4bbede360f5d8148a, type: 3}
       propertyPath: m_Pivot.x
