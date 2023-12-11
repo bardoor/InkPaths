@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using TMPro;
 
 public class StateMachine
 {
@@ -45,7 +46,9 @@ public class StateMachine
     public virtual bool ChangeState(PathElementState newState)
     {
         if (!IsValidTransition(newState))
+        {
             return false;
+        }
 
         CurrentState.Exit();
         newState.Element = _element;

@@ -27,9 +27,8 @@ public class TouchManager : MonoBehaviour
         _action.Disable();
     }
 
-    private RaycastHit2D[] GetCurrentRaycastHits()
+    private RaycastHit2D[] GetCurrentRaycastHits(Vector2 position)
     {
-        Vector2 position = _action.Touch.TouchPosition.ReadValue<Vector2>();
         Ray ray = Camera.main.ScreenPointToRay(position);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray);
         return hits;
@@ -39,15 +38,14 @@ public class TouchManager : MonoBehaviour
     {
         _isTouching = true;
 
-        RaycastHit2D[] hits = GetCurrentRaycastHits();
+        RaycastHit2D[] hits = GetCurrentRaycastHits(_action.Touch.TouchPosition.ReadValue<Vector2>());
         // Судя по всему в меню нельзя нажать куда-нибудь, чтобы задеть 2 объекта,
         // в самой игре 2 объекта задевается при нажатии на мост и соединение, но
         // такой случай нам тоже не подходит
         if (hits.Length == 1)
         {
-            if (hits[0].collider.TryGetComponent<InkBlob>(out InkBlob blob)) 
+            if (hits[0].collider.TryGetComponent(out InkBlob blob)) 
             {
-                Debug.Log("Ink blob here!!!!");
                 blob.HandleTouch();
             }
         }
@@ -67,13 +65,15 @@ public class TouchManager : MonoBehaviour
     {
         if (_isTouching)
         {
-            RaycastHit2D[] hits = GetCurrentRaycastHits();
+            RaycastHit2D[] hits = GetCurrentRaycastHits(_action.Touch.TouchPosition.ReadValue<Vector2>());
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider == null) continue;
+                if (hit.collider == null) {
+                    continue;
+                }
 
-                if (hit.collider.TryGetComponent<PathElement>(out PathElement pathElement))
+                if (hit.collider.TryGetComponent(out PathElement pathElement))
                 {
                     pathElement.HandleTouch();
                 }
