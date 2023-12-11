@@ -8,16 +8,9 @@ public class Connection : PathElement
 {
     protected List<Node> _connectedNodes = new List<Node>();
     public List<Node> ConnectedNodes { get { return _connectedNodes; } }
-    protected readonly Type[] _validColorabilityStateTransitions = new Type[] { typeof(UnpaintableState), typeof(PaintableState) };
-    protected readonly Type[] _validColorationStateTransitions = new Type[] { typeof(UnpaintedState), typeof(PaintedState) };
-
     private void InitState()
     {
-        _colorabiltyStateMachine.SetValidStateTransitions(_validColorabilityStateTransitions);
-        _colorabiltyStateMachine.Initialize(this, new UnpaintableState());
-        
-        _colorationStateMachine.SetValidStateTransitions(_validColorationStateTransitions);
-        _colorationStateMachine.Initialize(this, new UnpaintedState());
+        _stateMachine.Initialize(this, new UnpaintableState());
     }
 
     private void Awake()
@@ -65,7 +58,6 @@ public class Connection : PathElement
     public override void HandleTouch()
     {
         PathBuilder.Instance.AddElement(this);
-        _colorabiltyStateMachine.CurrentState.HandleTouch();
-        _colorationStateMachine.CurrentState.HandleTouch();
+        _stateMachine.CurrentState.HandleTouch();
     }
 }

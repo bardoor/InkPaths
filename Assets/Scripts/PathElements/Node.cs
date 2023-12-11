@@ -7,16 +7,15 @@ using System.Linq;
 public class Node : PathElement
 {
     protected HashSet<Connection> _connections = new HashSet<Connection>();
-    protected readonly Type[] _validColorabilityStateCycle = new Type[] { typeof(UnpaintableState), typeof(PaintableState) };
-    protected readonly Type[] _validColorationStateCycle = new Type[] { typeof(UnpaintedState), typeof(PaintedState) };
 
     private void InitState()
     {
-        _colorabiltyStateMachine.SetValidStateTransitions(_validColorabilityStateCycle);
-        _colorabiltyStateMachine.Initialize(this, new UnpaintableState());
+        _stateMachine.Initialize(this, new UnpaintableState());
+    }
 
-        _colorationStateMachine.SetValidStateTransitions(_validColorationStateCycle);
-        _colorationStateMachine.Initialize(this, new UnpaintedState());
+    public override void ChangeState(PathElementState newState)
+    {
+        _stateMachine.ChangeState(newState);
     }
 
     protected void InitConnections()
