@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 public class PathBuilder : IObservable
@@ -11,6 +12,12 @@ public class PathBuilder : IObservable
     private InkPath _currentPath;
 
     private HashSet<IObserver> _observers;
+
+    public PathElement First { get => _currentPath.First; }
+
+    public PathElement Last { get => _currentPath.Last; }
+
+    public int Count { get => _currentPath.Count; }
 
     private PathBuilder() {
         _paths = new HashSet<InkPath>();
@@ -26,6 +33,7 @@ public class PathBuilder : IObservable
             {
                 _instance = new PathBuilder();
             }
+
             return _instance;
         }
     }
@@ -37,11 +45,19 @@ public class PathBuilder : IObservable
 
     public void CancelBuilding()
     {
-        Debug.Log("CANCELLED FUCKIN PATH");
+        Debug.Log("PATHBUILDER: CANCELLED FUCKIN PATH");
 
-        foreach (PathElement pathElement in _currentPath.PathElements)
+        foreach (var pathElement in _currentPath.PathElements)
         {
-            pathElement.SetUnpaintableAround();
+            if (pathElement is InkBlob)
+            {
+                pathElement.ChangeState(new PaintableState());
+            }
+            else
+            {
+                pathElement.InkColor = PathElementState.NoColor;
+                pathElement.ChangeState(new UnpaintableState());
+            }
         }
 
         // Очистить активный путь
@@ -56,14 +72,17 @@ public class PathBuilder : IObservable
         // Добавить новый элемент в конец активного пути
         _currentPath.AddElement(element);
 
-        // Обновить состояние элементов, окружающих последний добавленный элемент
-        // element.SetPaintableAround();
-
         // Если активный путь является законченным путем...
         if (IsFinishedPath())
         {
-            Debug.Log("BUILT FUCKIN PATH");
+            Debug.Log("PATHBUILDER: BUILT FUCKIN PATH");
 
+            // ...сделать каждый элемент пути незакрашиваемым
+            foreach (var pathElement in _currentPath.PathElements)
+            {
+                Debug.Log($"{pathElement.name} IS IN PATH");
+                pathElement.ChangeState(new UnpaintableState());
+            }
             // ...поместить активный путь в список созданных путей
             _paths.Add(_currentPath.Copy());
             // ...очистить активный путь
@@ -84,4 +103,6 @@ public class PathBuilder : IObservable
             o.Update(e);
         }
     }
+
+   
 }

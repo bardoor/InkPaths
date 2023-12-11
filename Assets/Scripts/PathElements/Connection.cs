@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Android.Gradle;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Connection : PathElement
 {
@@ -39,25 +40,44 @@ public class Connection : PathElement
         }
     }
 
-    public override void SetPaintableAround()
+    public override void SetPaintableAround(params PathElement[] ignoredElements)
     {
-        foreach (Node node in _connectedNodes)
+        foreach (var node in _connectedNodes)
         {
+            if (ignoredElements.Contains(node))
+            {
+                continue;
+            }
+
             node.ChangeState(new PaintableState());
         }
     }
 
-    public override void SetUnpaintableAround()
+    public override void SetUnpaintableAround(params PathElement[] ignoredElements)
     {
-        foreach (Node node in _connectedNodes)
+        foreach (var node in _connectedNodes)
         {
+            if (ignoredElements.Contains(node))
+            {
+                continue;
+            }
+
             node.ChangeState(new UnpaintableState());
         }
     }
 
     public override void HandleTouch()
     {
+        if (!_stateMachine.ChangeState(new PaintedState()))
+        {
+            return;
+        }
+
+        SetPaintableAround();
+        //InkColor = PathBuilder.Instance.Last.InkColor;
+
+        Debug.Log("FUCK I M GONNA BE ADDED");
+        PathBuilder.Instance.Last.SetUnpaintableAround(this);
         PathBuilder.Instance.AddElement(this);
-        _stateMachine.CurrentState.HandleTouch();
     }
 }

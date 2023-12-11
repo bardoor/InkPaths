@@ -8,7 +8,18 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
     protected StateMachine _stateMachine = new StateMachine();
     protected List<IStateChangeListener> _listeners { get; } = new List<IStateChangeListener>();
-    public Color InkColor { get; set; }
+
+    private Color _inkColor = PathElementState.NoColor;
+    public Color InkColor {
+        get => _inkColor;
+        set {
+            Debug.Log("TRYING TO SET COLOR " + value);
+            //Debug.Log("WARNING: DON'T FORGET TO FIGURE OUT HOW TO CHANGE SHOWING COLOR");
+
+            //GetComponent<Image>().color = value;
+            _inkColor = value;
+        }
+    }
 
     public virtual void Subscribe(IStateChangeListener listener) => _listeners.Add(listener);
 
@@ -33,12 +44,9 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     // Непременно ты увидишь public метод золотой
     // За тебя он пусть решает - расслабляй свою мозгу!
     // Да благодари разраба, коль купаешься в жиру!
-    public virtual void ChangeState(PathElementState state)
+    public virtual bool ChangeState(PathElementState state)
     {
-        if (_stateMachine.IsValidTransition(state))
-        {
-            _stateMachine.ChangeState(state);
-        }
+        return _stateMachine.ChangeState(state);
     }
 
     public virtual void HandleTouch()
@@ -46,8 +54,9 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         _stateMachine.CurrentState.HandleTouch();
     }
 
-    public virtual void SetPaintableAround() { }
-    public virtual void SetUnpaintableAround() { }
+    public abstract void SetPaintableAround(params PathElement[] ignoredElements);
+
+    public abstract void SetUnpaintableAround(params PathElement[] ignoredElements);
 
     protected void InitCollider()
     {

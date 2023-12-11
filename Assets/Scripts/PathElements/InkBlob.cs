@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class InkBlob : Node
 {
@@ -16,23 +17,24 @@ public class InkBlob : Node
 
     private void Start()
     {
+        Debug.Log("INK BLOB COLOR IS");
+        Debug.Log(GetComponent<Image>().color);
         InitConnections();
     }
 
-
-    public override void SetPaintableAround()
+    // InkBlob
+    public override void HandleTouch()
     {
-        foreach (Connection conn in _connections)
+        if (!_stateMachine.ChangeState(new PaintedState()))
         {
-            conn.ChangeState(new PaintableState());
+            if (PathBuilder.Instance.Count > 0 && InkColor != PathBuilder.Instance.Last.InkColor) {
+                PathBuilder.Instance.CancelBuilding();
+            }
+            
+            return;
         }
-    }
 
-    public override void SetUnpaintableAround()
-    {
-        foreach (Connection conn in _connections)
-        {
-            conn.ChangeState(new UnpaintableState());
-        }
+        SetPaintableAround();
+        PathBuilder.Instance.AddElement(this);
     }
 }

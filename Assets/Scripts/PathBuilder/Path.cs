@@ -24,6 +24,16 @@ public class InkPath
     public int Count { get => _pathElements.Count; }
 
     /// <summary>
+    /// Первый элемент пути (null, если путь пустой).
+    /// </summary>
+    public PathElement First { get => Count > 0 ? _pathElements[0] : null; }
+
+    /// <summary>
+    /// Последний элемент пути (null, если путь пустой).
+    /// </summary>
+    public PathElement Last { get => Count > 0 ? _pathElements[^1] : null; }
+
+    /// <summary>
     /// Конструктор, создающий пустой путь.
     /// </summary>
     public InkPath() => _pathElements = new List<PathElement>();
@@ -41,7 +51,7 @@ public class InkPath
     public void AddElement(PathElement element)
     {
         if (_pathElements.Contains(element)) return;
-        Debug.Log("PATH BUILDER: " + element.GetType().Name);
+        Debug.Log("PATH BUILDER ADDED: " + element.GetType().Name);
         _pathElements.Add(element);
     }
 

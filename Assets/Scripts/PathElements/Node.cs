@@ -13,9 +13,9 @@ public class Node : PathElement
         _stateMachine.Initialize(this, new UnpaintableState());
     }
 
-    public override void ChangeState(PathElementState newState)
+    public override bool ChangeState(PathElementState newState)
     {
-        _stateMachine.ChangeState(newState);
+        return _stateMachine.ChangeState(newState);
     }
 
     protected void InitConnections()
@@ -46,4 +46,46 @@ public class Node : PathElement
         InitConnections();
     }
 
+    public override void SetPaintableAround(params PathElement[] ignoredElements)
+    {
+        foreach (var conn in _connections)
+        {
+            if (ignoredElements.Contains(conn))
+            {
+                continue;
+            }
+
+            conn.ChangeState(new PaintableState());
+        }
+    }
+
+    public override void SetUnpaintableAround(params PathElement[] ignoredElements)
+    {
+        foreach (var conn in _connections)
+        {
+            if (ignoredElements.Contains(conn))
+            {
+                continue;
+            }
+
+            conn.ChangeState(new UnpaintableState());
+        }
+    }
+
+    public override void HandleTouch()
+    {
+        if (!_stateMachine.ChangeState(new PaintedState()))
+        {
+            if (PathBuilder.Instance.Count > 0 && InkColor != PathBuilder.Instance.Last.InkColor)
+            {
+                PathBuilder.Instance.CancelBuilding();
+            }
+
+            return;
+        }
+
+        SetPaintableAround();
+        PathBuilder.Instance.AddElement(this);
+        //InkColor = PathBuilder.Instance.Last.InkColor;
+    }
 }

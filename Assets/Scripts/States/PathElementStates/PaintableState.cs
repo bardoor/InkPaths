@@ -16,6 +16,6 @@ public class PaintableState : PathElementState
 
     public override void Exit()
     {
-        Debug.Log($"{Element.name} exit PaintableState!!!");
+        Debug.Log($"{Element.name} exited PaintableState!!!");
     }
 }

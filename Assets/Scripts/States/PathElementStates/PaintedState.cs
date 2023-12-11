@@ -6,7 +6,7 @@ public class PaintedState : PathElementState
 {
     public override void Enter()
     {
-        Debug.Log($"{Element.name} entered PaintableState!!!");
+        Debug.Log($"{Element.name} entered PaintedState!!!");
     }
 
     public override void HandleTouch()
@@ -16,6 +16,6 @@ public class PaintedState : PathElementState
 
     public override void Exit()
     {
-        Debug.Log($"{Element.name} exit PaintableState!!!");
+        Debug.Log($"{Element.name} exited PaintedState!!!");
     }
 }
