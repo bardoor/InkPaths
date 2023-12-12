@@ -109,7 +109,7 @@ public class PathBuilder : IObservable
     {
         foreach (IObserver o in _observers)
         {
-            o.Update(e);
+            o.ProcessEvent(e);
         }
     }
 

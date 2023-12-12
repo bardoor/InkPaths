@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IObserver
 {
-    void Update(IEvent e);
+    void ProcessEvent(IEvent e);
 }

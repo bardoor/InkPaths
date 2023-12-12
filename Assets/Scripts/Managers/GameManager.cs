@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IObserver
 {
     private static GameManager instance;
     private static AudioManager _audioManager;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         InitLevelManager();
         InitGuiManager();
         InitTouchManager();
+        PathBuilder.Instance.AddObserver(this);
     }
 
     private void StartLevel(int index)
@@ -73,6 +74,14 @@ public class GameManager : MonoBehaviour
         else if (buttonName == "ExitButton")
         {
             Application.Quit();
+        }
+    }
+
+    public void ProcessEvent(IEvent e)
+    {
+        if (e is CancelledBuildingPath)
+        {
+            _touchManager.StopTouching();
         }
     }
 }

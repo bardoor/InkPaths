@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System.ComponentModel.Design;
+using System;
 
 public class TouchManager : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class TouchManager : MonoBehaviour
 
     private void StartTouch(InputAction.CallbackContext ctx)
     {
-        _isTouching = true;
+        StartTouching();
 
         RaycastHit2D[] hits = GetCurrentRaycastHits(_action.Touch.TouchPosition.ReadValue<Vector2>());
         // Судя по всему в меню нельзя нажать куда-нибудь, чтобы задеть 2 объекта,
@@ -53,11 +54,12 @@ public class TouchManager : MonoBehaviour
 
     private void EndTouch(InputAction.CallbackContext ctx)
     {
+        StopTouching();
+
         if (PathBuilder.Instance.Count > 0)
         {
             PathBuilder.Instance.CancelBuilding();
         }
-        _isTouching = false;
     }
 
     private void Update()
@@ -78,5 +80,15 @@ public class TouchManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StartTouching()
+    {
+        _isTouching = true;
+    }
+
+    public void StopTouching()
+    {
+        _isTouching = false;
     }
 }
