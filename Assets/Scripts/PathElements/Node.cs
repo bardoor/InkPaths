@@ -37,7 +37,7 @@ public class Node : PathElement
 
     private void Awake()
     {
-        InitTextDebug(24);
+        InitTextDebug(200);
         InitCollider();
         InitState();
     }
@@ -87,6 +87,5 @@ public class Node : PathElement
 
         SetPaintableAround();
         PathBuilder.Instance.AddElement(this);
-        //InkColor = PathBuilder.Instance.Last.InkColor;
     }
 }
