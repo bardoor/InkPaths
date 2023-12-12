@@ -37,6 +37,10 @@ public class Connection : PathElement
             {
                 node.ResetState(new UnpaintableState());
             }
+            else if (PathBuilder.Instance.BelongsToAnyCompletePath(node))
+            {
+                node.ResetState(new UnpaintableState());
+            }
         }
     }
 
