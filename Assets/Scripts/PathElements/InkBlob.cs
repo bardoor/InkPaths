@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class InkBlob : Node
 {
@@ -17,8 +19,7 @@ public class InkBlob : Node
 
     private void Start()
     {
-        Debug.Log("INK BLOB COLOR IS");
-        Debug.Log(GetComponent<Image>().color);
+        InitInkColor();
         InitConnections();
     }
 
@@ -36,5 +37,10 @@ public class InkBlob : Node
 
         SetPaintableAround();
         PathBuilder.Instance.AddElement(this);
+    }
+
+    private void InitInkColor()
+    {
+        InkColor = gameObject.GetComponentInChildren<Image>().color;
     }
 }

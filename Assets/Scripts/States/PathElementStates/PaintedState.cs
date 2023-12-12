@@ -6,16 +6,20 @@ public class PaintedState : PathElementState
 {
     public override void Enter()
     {
-        Debug.Log($"{Element.name} entered PaintedState!!!");
+        if (PathBuilder.Instance.Count > 0)
+        {
+            Debug.LogAssertion($"~~~Current elements in path: {PathBuilder.Instance.Count}. They are: ~~~");
+            PathBuilder.Instance.PrintAllElements();
+            Debug.LogAssertion($"And now I grab {PathBuilder.Instance.Last.InkColor} from {PathBuilder.Instance.Last.gameObject.name}");
+            Element.InkColor = PathBuilder.Instance.Last.InkColor;
+        }
     }
 
     public override void HandleTouch()
     {
-        Debug.Log($"{Element.name} handling touch!!!");
     }
 
     public override void Exit()
     {
-        Debug.Log($"{Element.name} exited PaintedState!!!");
     }
 }
