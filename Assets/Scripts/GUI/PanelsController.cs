@@ -10,6 +10,7 @@ public class PanelsController : MonoBehaviour
     public GameObject buttonQuestion;
     public GameObject pauseBlurPanel;
     private Animator animator;
+
     public void ChoseAnimation(int value)
     {
         animator = GetComponent<Animator>();
