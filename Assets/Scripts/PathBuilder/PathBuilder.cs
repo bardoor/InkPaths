@@ -103,7 +103,7 @@ public class PathBuilder : IObservable
             // ...очистить активный путь
             _currentPath.Clear();
             // ...уведомить слушателей, что создался новый путь
-            NotifyObservers(new FinishedBuildingPath());
+            NotifyObservers(new FinishedBuildingPath(_paths.Count));
         }
     }
 
