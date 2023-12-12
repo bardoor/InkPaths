@@ -2,6 +2,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using System.ComponentModel.Design;
 using System;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class TouchManager : MonoBehaviour
 {
@@ -11,44 +13,73 @@ public class TouchManager : MonoBehaviour
 
     private void Awake()
     {
-        _action = new TouchAction();
+        _action = new();
     }
 
     private void OnEnable()
     {
         _action.Enable();
+
         _action.Touch.TouchPress.started += ctx => StartTouch(ctx);
         _action.Touch.TouchPress.canceled += ctx => EndTouch(ctx);
     }
+
 
     private void OnDisable()
     {
         _action.Touch.TouchPress.started -= ctx => StartTouch(ctx);
         _action.Touch.TouchPress.canceled -= ctx => EndTouch(ctx);
+
         _action.Disable();
     }
 
-    private RaycastHit2D[] GetCurrentRaycastHits(Vector2 position)
+    private RaycastHit2D[] GetCurrentRaycastHitsAt(Vector2 position)
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
         RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray);
         return hits;
     }
 
+    private List<PathElement> GetCurrentPressedPathElementsAt(Vector2 position)
+    {
+        RaycastHit2D[] hits = GetCurrentRaycastHitsAt(position);
+
+        List<PathElement> hitElements = new();
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+            {
+                continue;
+            }
+
+            if (hit.collider.TryGetComponent(out PathElement pathElement))
+            {
+                hitElements.Add(pathElement);
+            }
+        }
+
+        return hitElements;
+    }
+
+    private PathElement GetCurrentPressedPathElementAt(Vector2 position)
+    {
+        List<PathElement> pressed = GetCurrentPressedPathElementsAt(position);
+        return pressed.Count == 0 ? null : pressed[0];
+    }
+
+    private Vector2 GetCurrentPosition()
+    {
+        return _action.Touch.TouchPosition.ReadValue<Vector2>();
+    }
+
     private void StartTouch(InputAction.CallbackContext ctx)
     {
         StartTouching();
 
-        RaycastHit2D[] hits = GetCurrentRaycastHits(_action.Touch.TouchPosition.ReadValue<Vector2>());
-        // Судя по всему в меню нельзя нажать куда-нибудь, чтобы задеть 2 объекта,
-        // в самой игре 2 объекта задевается при нажатии на мост и соединение, но
-        // такой случай нам тоже не подходит
-        if (hits.Length == 1)
+        PathElement pressed = GetCurrentPressedPathElementAt(GetCurrentPosition());
+        if (pressed != null && pressed is InkBlob blob)
         {
-            if (hits[0].collider.TryGetComponent(out InkBlob blob)) 
-            {
-                blob.HandleTouch();
-            }
+            blob.HandleTouch();
         }
     }
 
@@ -66,18 +97,10 @@ public class TouchManager : MonoBehaviour
     {
         if (_isTouching)
         {
-            RaycastHit2D[] hits = GetCurrentRaycastHits(_action.Touch.TouchPosition.ReadValue<Vector2>());
-
-            foreach (RaycastHit2D hit in hits)
+            List<PathElement> pressed = GetCurrentPressedPathElementsAt(GetCurrentPosition());
+            foreach (var element in pressed)
             {
-                if (hit.collider == null) {
-                    continue;
-                }
-
-                if (hit.collider.TryGetComponent(out PathElement pathElement))
-                {
-                    pathElement.HandleTouch();
-                }
+                element.HandleTouch();
             }
         }
     }

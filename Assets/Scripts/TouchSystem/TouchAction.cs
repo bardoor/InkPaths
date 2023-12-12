@@ -60,7 +60,7 @@ public partial class @TouchAction: IInputActionCollection2, IDisposable
                     ""id"": ""2e3a8001-9b7d-41a2-83ea-3e79345a9f55"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Hold(duration=3)"",
                     ""initialStateCheck"": true
                 }
             ],
