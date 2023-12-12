@@ -55,8 +55,9 @@ public class PathBuilder : IObservable
             }
             else
             {
-                pathElement.InkColor = PathElementState.NoColor;
-                pathElement.ChangeState(new UnpaintableState());
+                // Поменять на прежний цвет
+                pathElement.InkColor = Color.green;
+                pathElement.Reset();
             }
         }
 
@@ -81,7 +82,7 @@ public class PathBuilder : IObservable
             foreach (var pathElement in _currentPath.PathElements)
             {
                 Debug.Log($"{pathElement.name} IS IN PATH");
-                pathElement.ChangeState(new UnpaintableState());
+                pathElement.Reset();
             }
             // ...поместить активный путь в список созданных путей
             _paths.Add(_currentPath.Copy());

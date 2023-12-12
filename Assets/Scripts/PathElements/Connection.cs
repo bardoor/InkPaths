@@ -47,6 +47,7 @@ public class Connection : PathElement
         {
             if (ignoredElements.Contains(node))
             {
+                Debug.Log($"Element {node.name} is ignored in Connection::SetPaintableAround");
                 continue;
             }
 
@@ -60,6 +61,7 @@ public class Connection : PathElement
         {
             if (ignoredElements.Contains(node))
             {
+                Debug.Log($"Element {node.name} is ignored in Connection::SetUnpaintableAround");
                 continue;
             }
 
@@ -69,16 +71,22 @@ public class Connection : PathElement
 
     public override void HandleTouch()
     {
+        // Состояние меняется только в случае если соединение находится в PaintableState
         if (!_stateMachine.ChangeState(new PaintedState()))
         {
             return;
         }
 
-        SetPaintableAround();
-        //InkColor = PathBuilder.Instance.Last.InkColor;
-
-        Debug.Log("FUCK I M GONNA BE ADDED");
+        // Устанавливаем все соединения кроме текущего (выбранного)
+        // в UnpaintableState у точки, из которой мы пришли
         PathBuilder.Instance.Last.SetUnpaintableAround(this);
+        // Добавляем себя в чернильный путь
         PathBuilder.Instance.AddElement(this);
+        // Устанавливаем точку, в которую ведем палец, в PaintableState.
+        // У начальной точки на этот момент состояние PaintedState,
+        // поэтому этот метод её не затронет.
+        // Если вторая точка чернильная, то этот метод так же ничего не изменит,
+        // т.к. у этой точки уже состояние PaintableState
+        SetPaintableAround();
     }
 }

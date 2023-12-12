@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 
 public class Node : PathElement
 {
@@ -53,6 +54,7 @@ public class Node : PathElement
         {
             if (ignoredElements.Contains(conn))
             {
+                Debug.Log($"Element {conn.name} is ignored in Node::SetPaintableAround");
                 continue;
             }
 
@@ -66,6 +68,7 @@ public class Node : PathElement
         {
             if (ignoredElements.Contains(conn))
             {
+                Debug.Log($"Element {conn.name} is ignored in Node::SetUnpaintableAround");
                 continue;
             }
 
@@ -75,17 +78,21 @@ public class Node : PathElement
 
     public override void HandleTouch()
     {
-        if (!_stateMachine.ChangeState(new PaintedState()))
+        // Если мы пытаемся провести путь в чернильную точку не того же цвета,
+        // что и прошлый элемент пути, прекратить создание пути
+        if (PathBuilder.Instance.Count > 0 && InkColor != PathElementState.NoColor && InkColor != PathBuilder.Instance.First.InkColor)
         {
-            if (PathBuilder.Instance.Count > 0 && InkColor != PathBuilder.Instance.Last.InkColor)
-            {
-                PathBuilder.Instance.CancelBuilding();
-            }
-
+            PathBuilder.Instance.CancelBuilding();
             return;
         }
 
-        SetPaintableAround();
-        PathBuilder.Instance.AddElement(this);
+
+        if (_stateMachine.ChangeState(new PaintedState()))
+        {
+            // Добавляем себя в чернильный путь
+            PathBuilder.Instance.AddElement(this);
+            // Устанавливаем все соединения вокруг себя в PaintableState
+            SetPaintableAround();
+        }
     }
 }

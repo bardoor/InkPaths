@@ -61,10 +61,13 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         return _stateMachine.ChangeState(state);
     }
 
-    public virtual void HandleTouch()
+    public virtual void Reset()
     {
-        _stateMachine.CurrentState.HandleTouch();
+        Debug.Log($"Element {GetType().Name} is reset");
+        _stateMachine.Reset();
     }
+
+    public abstract void HandleTouch();
 
     public abstract void SetPaintableAround(params PathElement[] ignoredElements);
 

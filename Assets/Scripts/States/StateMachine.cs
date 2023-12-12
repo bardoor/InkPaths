@@ -11,9 +11,8 @@ public class StateMachine
     private PathElement _element;
 
     // публичный, иначе не работает IsValidTransition
-    public static readonly Dictionary<Type, Type[]> validStateTransitions = new Dictionary<Type, Type[]>()
+    public static readonly Dictionary<Type, Type[]> validStateTransitions = new()
     {
-        { typeof(PaintedState), new Type[]{ typeof(UnpaintableState) } },
         { typeof(UnpaintableState), new Type[]{ typeof(PaintableState) } },
         { typeof(PaintableState), new Type[] { typeof(UnpaintableState), typeof(PaintedState) } }
     };
@@ -25,6 +24,11 @@ public class StateMachine
 
     public static bool IsValidTransition(State startState, State nextState)
     {
+        if (!validStateTransitions.ContainsKey(startState.GetType()))
+        {
+            return false;
+        }
+
         Type[] validTransitions = validStateTransitions[startState.GetType()];
         return validTransitions.Contains(nextState.GetType());
     }
@@ -52,12 +56,23 @@ public class StateMachine
         }
 
         CurrentState.Exit();
-        newState.Element = _element;
         CurrentState = newState;
+        CurrentState.Element = _element;
         CurrentState.Enter();
         _element.ReportStateChanged();
         UpdateElementText();
         return true;
+    }
+
+    public virtual void Reset()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.Element = null;
+        }
+        CurrentState = null;
+        CurrentState = new UnpaintableState();
+        CurrentState.Element = _element;
     }
 
     private void UpdateElementText()
