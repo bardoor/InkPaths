@@ -11,7 +11,7 @@ public class TimerController2 : MonoBehaviour
     public GameObject slider;
     public TextMeshProUGUI text;
     public float maxValueTimer = 100f;
-    public GameObject pausePanel;
+    public GameObject pauseGameBlurPanel;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class TimerController2 : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!pausePanel.activeSelf)
+        if (!pauseGameBlurPanel.activeSelf)
         {
             if (slider.GetComponent<Slider>().value > 0f)
             {

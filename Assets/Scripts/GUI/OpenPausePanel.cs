@@ -8,6 +8,9 @@ public class OpenPausePanel : MonoBehaviour
 {
     private Animator animator;
     public GameObject buttonPause;
+    public GameObject buttonSettings;
+    public GameObject buttonQuestion;
+    public GameObject pauseBlurPanel;
     public Image star_1;
     public Image star_2;
     public Image star_3;
@@ -32,9 +35,20 @@ public class OpenPausePanel : MonoBehaviour
         }
     }
 
-    public void buttonPauseActiveTrue()
+    public void UnclickableButtons()
     {
-        buttonPause.SetActive(true);
+        buttonPause.GetComponent <Button>().interactable = false;
+        buttonSettings.GetComponent <Button>().interactable = false;
+        buttonQuestion.GetComponent <Button>().interactable = false;
+        pauseBlurPanel.SetActive(true);
+    }
+
+    public void ClickableButtons()
+    {
+        buttonPause.GetComponent <Button>().interactable = true;
+        buttonSettings.GetComponent<Button>().interactable = true;
+        buttonQuestion.GetComponent<Button>().interactable = true;
+        pauseBlurPanel.SetActive(false);
     }
 
     public void ChoseAnimaion(int value)
@@ -45,7 +59,7 @@ public class OpenPausePanel : MonoBehaviour
 
     public void ActiveFalse()
     {
-        buttonPauseActiveTrue();
+        ClickableButtons();
         this.gameObject.SetActive(false);
     }
 }
