@@ -11,7 +11,7 @@ public class PaintedState : PathElementState
             Debug.LogAssertion($"~~~Current elements in path: {PathBuilder.Instance.Count}. They are: ~~~");
             PathBuilder.Instance.PrintAllElements();
             Debug.LogAssertion($"And now I grab {PathBuilder.Instance.Last.InkColor} from {PathBuilder.Instance.Last.gameObject.name}");
-            Element.InkColor = PathBuilder.Instance.Last.InkColor;
+            Element.InkColor = PathBuilder.Instance.First.InkColor;
         }
     }
 

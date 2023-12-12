@@ -74,6 +74,7 @@ public class StateMachine
         CurrentState = null;
         CurrentState = newState;
         CurrentState.Element = _element;
+        UpdateElementText();
     }
 
     private void UpdateElementText()
