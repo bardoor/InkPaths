@@ -12,6 +12,7 @@ public class TimerController2 : MonoBehaviour
     public TextMeshProUGUI text;
     public float maxValueTimer = 100f;
     public GameObject pauseGameBlurPanel;
+    public GameObject lossPanel;
 
     void Start()
     {
@@ -44,9 +45,15 @@ public class TimerController2 : MonoBehaviour
             {
                 text.text = "0";
                 Debug.Log("Timer's expired");
+                OpenLossPanel();
                 //gameObject.SetActive(false);
             }
         }
+    }
+
+    private void OpenLossPanel()
+    {
+        lossPanel.gameObject.SetActive(true);
     }
 }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7cfcd711809f2ae4789e5cdedb97a591
+guid: cf0012294dcf94149998e12333948ede
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6067012404102291205
-    second: GameOver Panel_0
+      213: -4329440586233989439
+    second: Levels_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GameOver Panel_0
+      name: Levels_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 4352
-        height: 4416
+        width: 2102
+        height: 2102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bf02895ec54adcba0800000000000000
-      internalID: -6067012404102291205
+      spriteID: 1c63d55a9bcbae3c0800000000000000
+      internalID: -4329440586233989439
       vertices: []
       indices: 
       edges: []
@@ -141,7 +141,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      GameOver Panel_0: -6067012404102291205
+      Levels_0: -4329440586233989439
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
