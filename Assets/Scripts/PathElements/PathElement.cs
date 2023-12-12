@@ -26,7 +26,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
             {
                 gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
-            Debug.LogWarning($"set {value} color to {gameObject.name}");
 
             Image[] images = gameObject.GetComponentsInChildren<Image>(true);
             if (images.Length > 1)
@@ -45,7 +44,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     {
         foreach (IStateChangeListener listener in _listeners)
         {
-            Debug.Log($"Element {GetType().Name} is in {_stateMachine.CurrentState.GetType().Name}");
             listener.OnStateEnter(this, _stateMachine.CurrentState);
         }
     }
