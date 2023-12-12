@@ -50,10 +50,19 @@ public class InkPath
     /// <param name="element">Новый элемент.</param>
     public void AddElement(PathElement element)
     {
-        if (_pathElements.Contains(element)) return;
-        Debug.Log("PATH BUILDER ADDED: " + element.GetType().Name);
+        if (_pathElements.Contains(element))
+        {
+            return;
+        }
         _pathElements.Add(element);
     }
+
+    /// <summary>
+    /// Проверяет, принадлежит ли элемент пути.
+    /// </summary>
+    /// <param name="element">Элемент, принадлежность которого проверяется</param>
+    /// <returns>Признак, указывающий, принадлежит ли элемент пути</returns>
+    public bool BelongsToPath(PathElement element) => _pathElements.Contains(element);
 
     /// <summary>
     /// Удаляет все элементы из пути.

@@ -45,8 +45,6 @@ public class PathBuilder : IObservable
 
     public void CancelBuilding()
     {
-        Debug.Log("PATHBUILDER: CANCELLED FUCKIN PATH");
-
         foreach (var pathElement in _currentPath.PathElements)
         {
             // Если путь не завершен и длиной 1, то в нем только чернильная точка,
@@ -90,12 +88,9 @@ public class PathBuilder : IObservable
         // Если активный путь является законченным путем...
         if (IsFinishedPath())
         {
-            Debug.Log("PATHBUILDER: BUILT FUCKIN PATH");
-
             // ...сделать каждый элемент пути незакрашиваемым
             foreach (var pathElement in _currentPath.PathElements)
             {
-                Debug.Log($"{pathElement.name} IS IN PATH");
                 pathElement.ResetState(new UnpaintableState());
             }
             // ...поместить активный путь в список созданных путей
@@ -105,6 +100,18 @@ public class PathBuilder : IObservable
             // ...уведомить слушателей, что создался новый путь
             NotifyObservers(new FinishedBuildingPath(_paths.Count));
         }
+    }
+
+    public bool BelongsToAnyCompletePath(PathElement element)
+    {
+        foreach (var path in _paths)
+        {
+            if (path.BelongsToPath(element))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void AddObserver(IObserver o) => _observers.Add(o);

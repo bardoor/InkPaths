@@ -54,7 +54,6 @@ public class Node : PathElement
         {
             if (ignoredElements.Contains(conn))
             {
-                Debug.Log($"Element {conn.name} is ignored in Node::SetPaintableAround");
                 continue;
             }
 
@@ -68,7 +67,6 @@ public class Node : PathElement
         {
             if (ignoredElements.Contains(conn))
             {
-                Debug.Log($"Element {conn.name} is ignored in Node::SetUnpaintableAround");
                 continue;
             }
 

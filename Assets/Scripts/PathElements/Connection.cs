@@ -37,6 +37,10 @@ public class Connection : PathElement
             {
                 node.ResetState(new UnpaintableState());
             }
+            else if (PathBuilder.Instance.BelongsToAnyCompletePath(node))
+            {
+                node.ResetState(new UnpaintableState());
+            }
         }
     }
 
@@ -46,7 +50,6 @@ public class Connection : PathElement
         {
             if (ignoredElements.Contains(node))
             {
-                Debug.Log($"Element {node.name} is ignored in Connection::SetPaintableAround");
                 continue;
             }
 
@@ -60,7 +63,6 @@ public class Connection : PathElement
         {
             if (ignoredElements.Contains(node))
             {
-                Debug.Log($"Element {node.name} is ignored in Connection::SetUnpaintableAround");
                 continue;
             }
 
@@ -73,6 +75,15 @@ public class Connection : PathElement
         // Состояние меняется только в случае если соединение находится в PaintableState
         if (!_stateMachine.ChangeState(new PaintedState()))
         {
+            return;
+        }
+        // Если водить пальцем/мышкой слишком быстро, то при каких-то невыявленных
+        // пока что условиях PathBuilder оказывается пустым, чего быть не должно,
+        // поэтому если так вышло, мы просто выходим из функции предварительно устанавливая данному
+        // соединению состояние UnpaintableState
+        if (PathBuilder.Instance.Last == null)
+        {
+            _stateMachine.ResetState(new UnpaintableState());
             return;
         }
         // Устанавливаем все соединения кроме текущего (выбранного)
