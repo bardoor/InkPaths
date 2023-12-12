@@ -4821,9 +4821,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 519420033}
+      - m_Target: {fileID: 983116129}
         m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
-        m_MethodName: SelectScene
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
