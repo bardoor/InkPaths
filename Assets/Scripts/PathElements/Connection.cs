@@ -7,7 +7,8 @@ using System.Linq;
 
 public class Connection : PathElement
 {
-    protected List<Node> _connectedNodes = new List<Node>();
+    [SerializeField] protected List<Node> _connectedNodes = new List<Node>();
+    [SerializeField] protected String state = "Nope";
     public List<Node> ConnectedNodes { get { return _connectedNodes; } }
     private void InitState()
     {
@@ -31,14 +32,7 @@ public class Connection : PathElement
 
     public void Update()
     {
-        if (_connectedNodes.Count == 0)
-        {
-            // чето тут
-        }
-        else if (_connectedNodes[0].InkColor != PathElementState.NoColor && _connectedNodes[0].InkColor == _connectedNodes[1].InkColor)
-        {
-            ChangeState(new UnpaintableState());
-        }
+        state = _stateMachine.CurrentState.ToString();
     }
 
     public override void SetPaintableAround(params PathElement[] ignoredElements)
