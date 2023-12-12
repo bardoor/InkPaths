@@ -8,26 +8,28 @@ using UnityEngine.UI;
 
 public class TimerController2 : MonoBehaviour
 {
+    public GameObject slider;
     public TextMeshProUGUI text;
     public float maxValueTimer = 100f;
     public GameObject pausePanel;
 
     void Start()
     {
-        gameObject.GetComponent<Slider>().minValue = 0f;
-        gameObject.GetComponent<Slider>().maxValue = maxValueTimer;
-        gameObject.GetComponent<Slider>().value = maxValueTimer;
+        Debug.Log("Timer start");
+        slider.GetComponent<Slider>().minValue = 0f;
+        slider.GetComponent<Slider>().maxValue = maxValueTimer;
+        slider.GetComponent<Slider>().value = maxValueTimer;
     }
 
     void FixedUpdate()
     {
         if (!pausePanel.activeSelf)
         {
-            if (gameObject.GetComponent<Slider>().value > 0f)
+            if (slider.GetComponent<Slider>().value > 0f)
             {
-                float timerValue = Mathf.Ceil(gameObject.GetComponent<Slider>().value);
+                float timerValue = Mathf.Ceil(slider.GetComponent<Slider>().value);
 
-                if (gameObject.GetComponent<Slider>().value > maxValueTimer * 0.2f)
+                if (slider.GetComponent<Slider>().value > maxValueTimer * 0.2f)
                     text.text = timerValue.ToString();
                 else
                 {
@@ -36,15 +38,15 @@ public class TimerController2 : MonoBehaviour
                     text.text = timerValue.ToString();
                 }
 
-                gameObject.GetComponent<Slider>().value -= Time.deltaTime;
-
+                slider.GetComponent<Slider>().value -= Time.deltaTime;
             }
             else
             {
+                text.text = "0";
                 Debug.Log("Timer's expired");
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
             }
         }
-        
     }
 }
+

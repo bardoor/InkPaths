@@ -7,7 +7,6 @@ using UnityEngine;
 public class OpenPausePanel : MonoBehaviour
 {
     private Animator animator;
-    public GameObject _gameObject;
     public GameObject buttonPause;
     public Image star_1;
     public Image star_2;
@@ -42,16 +41,6 @@ public class OpenPausePanel : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         animator.SetInteger("switchAnim", value);
-    }
-
-    public void ActiveObjectFalse()
-    {
-        _gameObject.SetActive(false);
-    }
-
-    public void ActiveObjectTrue()
-    {
-        _gameObject.SetActive(true);
     }
 
     public void ActiveFalse()

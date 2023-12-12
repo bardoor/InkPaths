@@ -41,6 +41,8 @@ public class LevelManager : MonoBehaviour {
         {
             GameObject instantiatedPrefab = Instantiate(_currentLevel, Vector3.zero, Quaternion.identity);
             instantiatedPrefab.transform.SetParent(canvasObject.transform, false);
+
+            
         }
         else
         {

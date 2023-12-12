@@ -155,10 +155,10 @@ RectTransform:
   - {fileID: 402370764}
   m_Father: {fileID: 2075550286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.049}
-  m_AnchorMin: {x: 0.14859258, y: 0.82218766}
-  m_AnchorMax: {x: 0.85300004, y: 0.8793333}
-  m_AnchoredPosition: {x: 0, y: -0.5}
-  m_SizeDelta: {x: -256, y: -35}
+  m_AnchorMin: {x: 0.13566665, y: 0.84700006}
+  m_AnchorMax: {x: 0.9666297, y: 0.84700006}
+  m_AnchoredPosition: {x: -28.5, y: -7}
+  m_SizeDelta: {x: -342, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50902436
 MonoBehaviour:
@@ -199,7 +199,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1216723995}
   m_HandleRect: {fileID: 0}
@@ -223,6 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c08b780174a794898042f1e4fcbd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 50902434}
+  text: {fileID: 402370765}
+  maxValueTimer: 20
+  pausePanel: {fileID: 403675562}
 --- !u!1 &115100467
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +345,7 @@ GameObject:
   - component: {fileID: 120692511}
   - component: {fileID: 120692510}
   m_Layer: 5
-  m_Name: ButtonInfo
+  m_Name: ButtonSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5947433861040873002, guid: 7d8f5f46f33e42843922fcdc30e94518, type: 3}
+  m_Sprite: {fileID: 7886631795410796208, guid: b8b9d74f7e5eaca4fa18c5dceaf08d78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -500,6 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c08b780174a794898042f1e4fcbd0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  text: {fileID: 0}
+  maxValueTimer: 100
+  pausePanel: {fileID: 0}
 --- !u!114 &239473311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,7 +737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.04437037, y: 0.28716668}
   m_AnchorMax: {x: 0.95459265, y: 0.81700003}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -95}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &403675564
@@ -766,6 +774,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702d01449376cd14a85574f5a7dc608a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonPause: {fileID: 870965335}
+  star_1: {fileID: 919050242}
+  star_2: {fileID: 1776169903}
+  star_3: {fileID: 861906784}
+  timer: {fileID: 50902436}
 --- !u!1 &517439016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,7 +1524,7 @@ GameObject:
   - component: {fileID: 870965338}
   - component: {fileID: 870965337}
   m_Layer: 5
-  m_Name: BattonPause
+  m_Name: ButtonPause
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
