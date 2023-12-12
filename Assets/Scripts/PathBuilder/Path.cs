@@ -50,8 +50,10 @@ public class InkPath
     /// <param name="element">Новый элемент.</param>
     public void AddElement(PathElement element)
     {
-        if (_pathElements.Contains(element)) return;
-        Debug.Log("PATH BUILDER ADDED: " + element.GetType().Name);
+        if (_pathElements.Contains(element))
+        {
+            return;
+        }
         _pathElements.Add(element);
     }
 

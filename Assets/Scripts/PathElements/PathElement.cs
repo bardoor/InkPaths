@@ -65,7 +65,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 
     public virtual void ResetState(PathElementState newState)
     {
-        Debug.Log($"Element {GetType().Name} is reset in {newState.GetType().Name}");
         _stateMachine.ResetState(newState);
     }
 
