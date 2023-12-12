@@ -63,6 +63,12 @@ public class PathBuilder : IObservable
             }
             else
             {
+                // Это нужно чтобы сбросить PaintableState у узла, в которой ведется палец
+                if (pathElement is Connection conn)
+                {
+                    conn.ResetAnythingButInkBlob();
+                }
+
                 pathElement.ResetState(new UnpaintableState());
                 // Поменять на прежний цвет
                 pathElement.InkColor = PathElementState.NoColor;

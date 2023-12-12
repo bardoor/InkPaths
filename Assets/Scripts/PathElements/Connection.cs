@@ -29,6 +29,17 @@ public class Connection : PathElement
         }
     }
 
+    public void ResetAnythingButInkBlob()
+    {
+        foreach (var node in _connectedNodes)
+        {
+            if (node is not InkBlob)
+            {
+                node.ResetState(new UnpaintableState());
+            }
+        }
+    }
+
     public override void SetPaintableAround(params PathElement[] ignoredElements)
     {
         foreach (var node in _connectedNodes)
