@@ -48,6 +48,10 @@ public class InkBlob : Node
 
     private void InitInkColor()
     {
-        InkColor = gameObject.GetComponentInChildren<Image>().color;
+        Image[] images = gameObject.GetComponentsInChildren<Image>(true);
+        if (images.Length > 1)
+        {
+            InkColor = images[1].color;
+        }
     }
 }

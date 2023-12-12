@@ -32,8 +32,8 @@ public class Node : PathElement
             interconnection.AddNode(GetComponent<Node>());
         }
 
-        Debug.LogAssertion($"~~~~~~{gameObject.name}~~~~~~");
-        _connections.ToList().ForEach(element => Debug.Log((element)));
+        // Debug.LogAssertion($"~~~~~~{gameObject.name}~~~~~~");
+        // _connections.ToList().ForEach(element => Debug.Log((element)));
     }
 
     private void Awake()

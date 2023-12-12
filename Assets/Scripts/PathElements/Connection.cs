@@ -8,7 +8,7 @@ using System.Linq;
 public class Connection : PathElement
 {
     [SerializeField] protected List<Node> _connectedNodes = new List<Node>();
-    [SerializeField] protected String state = "Nope";
+
     public List<Node> ConnectedNodes { get { return _connectedNodes; } }
     private void InitState()
     {
@@ -32,7 +32,7 @@ public class Connection : PathElement
 
     public void Update()
     {
-        state = _stateMachine.CurrentState.ToString();
+
     }
 
     public override void SetPaintableAround(params PathElement[] ignoredElements)

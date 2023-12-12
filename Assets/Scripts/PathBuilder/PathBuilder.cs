@@ -59,7 +59,7 @@ public class PathBuilder : IObservable
             {
                 pathElement.ResetState(new UnpaintableState());
                 // Поменять на прежний цвет
-                pathElement.InkColor = Color.green;
+                pathElement.InkColor = PathElementState.NoColor;
             }
         }
 

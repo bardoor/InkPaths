@@ -27,8 +27,12 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
                 gameObject.transform.GetChild(0).gameObject.SetActive(true);
             }
             Debug.LogWarning($"set {value} color to {gameObject.name}");
-            gameObject.transform.GetComponentInChildren<Image>().color = value; // Устанавливаем цвет чернилле 
-            gameObject.GetComponent<Image>().color = Color.white; // Устанавливаем цвет контейнеру черниллы(если убрать то будет баг)
+
+            Image[] images = gameObject.GetComponentsInChildren<Image>(true);
+            if (images.Length > 1)
+            {
+                images[1].color = value;
+            }
             _inkColor = value;
         }
     }
