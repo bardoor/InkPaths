@@ -8,7 +8,6 @@ using System.Linq;
 public class Connection : PathElement
 {
     [SerializeField] protected List<Node> _connectedNodes = new List<Node>();
-    [SerializeField] protected String state = "Nope";
     public List<Node> ConnectedNodes { get { return _connectedNodes; } }
     private void InitState()
     {
@@ -28,11 +27,6 @@ public class Connection : PathElement
         {
             _connectedNodes.Add(node);
         }
-    }
-
-    public void Update()
-    {
-        state = _stateMachine.CurrentState.ToString();
     }
 
     public override void SetPaintableAround(params PathElement[] ignoredElements)
@@ -70,7 +64,6 @@ public class Connection : PathElement
         {
             return;
         }
-
         // Устанавливаем все соединения кроме текущего (выбранного)
         // в UnpaintableState у точки, из которой мы пришли
         PathBuilder.Instance.Last.SetUnpaintableAround(this);
