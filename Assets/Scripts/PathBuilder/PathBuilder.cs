@@ -102,6 +102,18 @@ public class PathBuilder : IObservable
         }
     }
 
+    public bool BelongsToAnyCompletePath(PathElement element)
+    {
+        foreach (var path in _paths)
+        {
+            if (path.BelongsToPath(element))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void AddObserver(IObserver o) => _observers.Add(o);
 
     public void RemoveObserver(IObserver o) => _observers.Remove(o);

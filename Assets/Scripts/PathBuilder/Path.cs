@@ -58,6 +58,13 @@ public class InkPath
     }
 
     /// <summary>
+    /// Проверяет, принадлежит ли элемент пути.
+    /// </summary>
+    /// <param name="element">Элемент, принадлежность которого проверяется</param>
+    /// <returns>Признак, указывающий, принадлежит ли элемент пути</returns>
+    public bool BelongsToPath(PathElement element) => _pathElements.Contains(element);
+
+    /// <summary>
     /// Удаляет все элементы из пути.
     /// </summary>
     public void Clear() => _pathElements.Clear();
