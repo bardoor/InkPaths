@@ -13,6 +13,7 @@ public class StateMachine
     // публичный, иначе не работает IsValidTransition
     public static readonly Dictionary<Type, Type[]> validStateTransitions = new()
     {
+        { typeof(PaintedState), new Type[] { typeof(UnpaintableState) } },
         { typeof(UnpaintableState), new Type[]{ typeof(PaintableState) } },
         { typeof(PaintableState), new Type[] { typeof(UnpaintableState), typeof(PaintedState) } }
     };
@@ -64,14 +65,14 @@ public class StateMachine
         return true;
     }
 
-    public virtual void Reset()
+    public virtual void ResetState(PathElementState newState)
     {
         if (CurrentState != null)
         {
             CurrentState.Element = null;
         }
         CurrentState = null;
-        CurrentState = new UnpaintableState();
+        CurrentState = newState;
         CurrentState.Element = _element;
     }
 

@@ -61,10 +61,10 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         return _stateMachine.ChangeState(state);
     }
 
-    public virtual void Reset()
+    public virtual void ResetState(PathElementState newState)
     {
-        Debug.Log($"Element {GetType().Name} is reset");
-        _stateMachine.Reset();
+        Debug.Log($"Element {GetType().Name} is reset in {newState.GetType().Name}");
+        _stateMachine.ResetState(newState);
     }
 
     public abstract void HandleTouch();

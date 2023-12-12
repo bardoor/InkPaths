@@ -49,15 +49,17 @@ public class PathBuilder : IObservable
 
         foreach (var pathElement in _currentPath.PathElements)
         {
+            pathElement.SetUnpaintableAround();
+
             if (pathElement is InkBlob)
             {
-                pathElement.ChangeState(new PaintableState());
+                pathElement.ResetState(new PaintableState());
             }
             else
             {
+                pathElement.ResetState(new UnpaintableState());
                 // Поменять на прежний цвет
                 pathElement.InkColor = Color.green;
-                pathElement.Reset();
             }
         }
 
@@ -82,7 +84,7 @@ public class PathBuilder : IObservable
             foreach (var pathElement in _currentPath.PathElements)
             {
                 Debug.Log($"{pathElement.name} IS IN PATH");
-                pathElement.Reset();
+                pathElement.ResetState(new UnpaintableState());
             }
             // ...поместить активный путь в список созданных путей
             _paths.Add(_currentPath.Copy());
