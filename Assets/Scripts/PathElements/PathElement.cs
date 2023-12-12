@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Android.Gradle;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
@@ -10,13 +11,24 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     protected List<IStateChangeListener> _listeners { get; } = new List<IStateChangeListener>();
 
     private Color _inkColor = PathElementState.NoColor;
+
+    public TextMeshProUGUI _debugText;
+    public GameObject _debugTextContainer;
+
     public Color InkColor {
         get => _inkColor;
         set {
-            Debug.Log("TRYING TO SET COLOR " + value);
-            //Debug.Log("WARNING: DON'T FORGET TO FIGURE OUT HOW TO CHANGE SHOWING COLOR");
-
-            //GetComponent<Image>().color = value;
+            if (value == PathElementState.NoColor)
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            Debug.LogWarning($"set {value} color to {gameObject.name}");
+            gameObject.transform.GetComponentInChildren<Image>().color = value; // Устанавливаем цвет чернилле 
+            gameObject.GetComponent<Image>().color = Color.white; // Устанавливаем цвет контейнеру черниллы(если убрать то будет баг)
             _inkColor = value;
         }
     }
@@ -82,6 +94,16 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         }
     }
 
+    protected void InitTextDebug(int fontSize)
+    {
+        _debugTextContainer = new GameObject("TextContainer");
+        _debugTextContainer.transform.SetParent(transform, false);
+        _debugText = _debugTextContainer.AddComponent<TextMeshProUGUI>();
+
+        _debugText.fontSize = fontSize;
+        _debugText.color = Color.white;
+        _debugText.enableWordWrapping = false;
+    }
 
     // Здесь и померли когда-то
     // Славных три богатыря

@@ -37,6 +37,7 @@ public class Node : PathElement
 
     private void Awake()
     {
+        InitTextDebug(24);
         InitCollider();
         InitState();
     }

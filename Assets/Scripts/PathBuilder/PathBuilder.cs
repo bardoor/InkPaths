@@ -104,5 +104,8 @@ public class PathBuilder : IObservable
         }
     }
 
-   
+    public void PrintAllElements()
+    {
+        _currentPath.PathElements.ForEach(element => Debug.Log(element.gameObject.name));
+    }
 }

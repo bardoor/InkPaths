@@ -1,8 +1,6 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-using TMPro;
-
 
 public class InkBlob : Node
 {
@@ -13,6 +11,7 @@ public class InkBlob : Node
 
     private void Awake()
     {
+        InitTextDebug(200);
         InitCollider();
         InitState();
     }
