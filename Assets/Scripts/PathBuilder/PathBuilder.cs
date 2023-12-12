@@ -49,7 +49,13 @@ public class PathBuilder : IObservable
 
         foreach (var pathElement in _currentPath.PathElements)
         {
-            pathElement.SetUnpaintableAround();
+            // Если путь не завершен и длиной 1, то в нем только чернильная точка,
+            // вокруг которой соединения в состоянии PaintableState, этим вызовом мы убираем
+            // эти состояния
+            if (Count == 1)
+            {
+                pathElement.SetUnpaintableAround();
+            }
 
             if (pathElement is InkBlob)
             {
