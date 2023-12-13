@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviour, IObserver
                     if (obj.name == "WinnerPanel" && !obj.activeInHierarchy)
                     {
                         obj.SetActive(true);
+                        PathBuilder.Instance.ClearCompletePaths();
                     }
                 }
             }

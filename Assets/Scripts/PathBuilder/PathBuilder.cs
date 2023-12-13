@@ -40,6 +40,8 @@ public class PathBuilder : IObservable
         }
     }
 
+    public void ClearCompletePaths() => _paths.Clear();
+
     public bool IsFinishedPath()
     {
         return _currentPath.IsFinishedPath();
