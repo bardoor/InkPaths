@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 60037013}
   - component: {fileID: 60037015}
   - component: {fileID: 60037014}
+  - component: {fileID: 60037016}
   m_Layer: 6
   m_Name: WinnerPanel
   m_TagString: Untagged
@@ -498,10 +499,10 @@ MonoBehaviour:
   buttonSettings: {fileID: 120692508}
   buttonQuestion: {fileID: 1790476263}
   pauseBlurPanel: {fileID: 713753519}
-  star_1: {fileID: 1270690308}
-  star_2: {fileID: 1369327425}
-  star_3: {fileID: 600869772}
-  timer: {fileID: 50902436}
+  star_1: {fileID: 0}
+  star_2: {fileID: 0}
+  star_3: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!95 &60037015
 Animator:
   serializedVersion: 7
@@ -524,6 +525,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &60037016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60037012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cca0631e0c7e3e489c2a4646ca00907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPause: {fileID: 0}
+  buttonSettings: {fileID: 0}
+  buttonQuestion: {fileID: 0}
+  pauseBlurPanel: {fileID: 0}
+  star_1: {fileID: 1270690308}
+  star_2: {fileID: 1369327425}
+  star_3: {fileID: 600869772}
+  timer: {fileID: 50902436}
 --- !u!1 &94937511
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,19 +966,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 131083116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 60037014}
-        m_TargetAssemblyTypeName: OpenPausePanel, Assembly-CSharp
-        m_MethodName: ChoseAnimaion
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &131083116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3485,7 +3494,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713753519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 1
