@@ -3,29 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mono.Data.Sqlite;
 using System;
+using UnityEditor.MemoryProfiler;
 
 
 public class DBManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private SqliteConnection _connection;
+
+    void Awake()
     {
-        using (var connection = new SqliteConnection("Data Source=playerinfo.db"))
-        {
-            connection.Open();
+        _connection = new SqliteConnection("Data Source=playerinfo.db");
 
-            SqliteCommand command = new SqliteCommand();
-            command.Connection = connection;
-            command.CommandText = "CREATE TABLE Users(_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, Name TEXT NOT NULL, Age INTEGER NOT NULL)";
-            command.ExecuteNonQuery();
+        _connection.Open();
 
-            Debug.Log("Created table");
-        }
+        SqliteCommand command = new SqliteCommand();
+        command.Connection = _connection;
+        command.CommandText = "" +
+            "CREATE TABLE IF NOT EXISTS PlayerInfo" +
+            "(" +
+            "Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE," +
+            "LeverNumber INTEGER NOT NULL," +
+            "Time INTEGER NOT NULL," +
+            "StarsCount INTEGEG NOT NULL" +
+            ")";
+        command.ExecuteNonQuery();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddNewRecord(int levelNumber, int time, int startCount)
     {
-        
+        SqliteCommand command = new SqliteCommand();
+        command.Connection = _connection;
+        command.CommandText = "" +
+            $"INSERT INTO PlayerInfo (LevelNumber, Time, StarsCount) VALUES ({levelNumber}, {time}, {startCount})";
+        int number = command.ExecuteNonQuery();
+        Debug.Log($"DBManager: added {number} record(s) to database");
+    }
+    
+    public void Disconnect()
+    {
+        if (_connection != null)
+        {
+            _connection.Dispose();
+            _connection = null;
+        }
     }
 }
