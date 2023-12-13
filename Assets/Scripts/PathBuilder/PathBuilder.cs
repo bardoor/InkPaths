@@ -145,6 +145,7 @@ public class PathBuilder : IObservable
         {
             return;
         }
+        _paths.Remove(needed);
 
         foreach (var pathElement in needed.PathElements)
         {
