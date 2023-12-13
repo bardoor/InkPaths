@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IObserver
@@ -15,16 +13,14 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (!NeedBootstraping()) return;
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
+    private bool NeedBootstraping()
+        => instance == null ? true : false;
 
     private void Start()
     {
@@ -62,7 +58,7 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void InitGuiManager()
     {
-        _guiManager = ScriptableObject.CreateInstance<GUIManager>();
+        _guiManager = gameObject.AddComponent<GUIManager>();
         GUIManager.OnButtonClick += HandleButtonClick;
     }
 
@@ -92,7 +88,28 @@ public class GameManager : MonoBehaviour, IObserver
         }
         else if (buttonName.StartsWith("Level "))
         {
-            StartLevel((buttonName[buttonName.Length - 1] - '0'));
+            int index = buttonName[buttonName.Length - 1] - '0';
+            if (!(index == 1 || index == 2)) return;
+            StartLevel(index);
+        }
+    }
+
+    private void Update()
+    {
+        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj.name == "PauseBlurPanel")
+            {
+                if (!obj.activeInHierarchy)
+                {
+                    _touchManager.UnblockTouches();
+                }
+                else
+                {
+                    _touchManager.BlockTouches();
+                }
+            }
         }
     }
 
@@ -114,6 +131,7 @@ public class GameManager : MonoBehaviour, IObserver
                     {
                         obj.SetActive(true);
                         PathBuilder.Instance.ClearCompletePaths();
+                        StopTouching();
                     }
                 }
             }
@@ -132,4 +150,8 @@ public class GameManager : MonoBehaviour, IObserver
         // Отписываемся от события начала уровня
         LevelManager.OnLevelStarted -= OnLevelStarted;
     }
+
+    public void StopTouching() => _touchManager.StopTouching();
+
+    public void StartTouching() => _touchManager.StartTouching();
 }

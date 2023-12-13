@@ -48,6 +48,7 @@ public class TimerController2 : MonoBehaviour
                 OpenLossPanel();
                 //gameObject.SetActive(false);
                 PathBuilder.Instance.ClearCompletePaths();
+                GameObject.FindFirstObjectByType<GameManager>().StopTouching();
             }
         }
     }

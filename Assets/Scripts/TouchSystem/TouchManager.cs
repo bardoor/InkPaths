@@ -12,6 +12,8 @@ public class TouchManager : MonoBehaviour
 
     private bool _isTouching = false;
 
+    private bool _isBlocked = false;
+
     private PathElement _lastPressedPathElement = null;
 
     private double _holdTime = 0;
@@ -25,18 +27,35 @@ public class TouchManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _action.Enable();
+        if (_action != null)
+        {
+            _action.Enable();
 
-        _action.Touch.TouchPress.started += ctx => StartTouch(ctx);
-        _action.Touch.TouchPress.canceled += ctx => EndTouch(ctx);
+            _action.Touch.TouchPress.started += ctx => StartTouch(ctx);
+            _action.Touch.TouchPress.canceled += ctx => EndTouch(ctx);
+        }
     }
 
     private void OnDisable()
     {
-        _action.Touch.TouchPress.started -= ctx => StartTouch(ctx);
-        _action.Touch.TouchPress.canceled -= ctx => EndTouch(ctx);
+        if (_action != null)
+        {
+            _action.Touch.TouchPress.started -= ctx => StartTouch(ctx);
+            _action.Touch.TouchPress.canceled -= ctx => EndTouch(ctx);
 
-        _action.Disable();
+            _action.Disable();
+        }
+       
+    }
+
+    public void BlockTouches()
+    {
+        _isBlocked = true;
+    }
+
+    public void UnblockTouches()
+    {
+        _isBlocked = false;
     }
 
     private RaycastHit2D[] GetCurrentRaycastHitsAt(Vector2 position)
@@ -80,6 +99,8 @@ public class TouchManager : MonoBehaviour
 
     private void StartTouch(InputAction.CallbackContext ctx)
     {
+        if (_isBlocked) return;
+
         StartTouching();
         SaveCurrentPressedPathElement();
         ZeroHoldTime();
@@ -93,6 +114,8 @@ public class TouchManager : MonoBehaviour
 
     private void EndTouch(InputAction.CallbackContext ctx)
     {
+        if (_isBlocked) return;
+
         StopTouching();
         ForgetLastPressedPathElement();
         ZeroHoldTime();
@@ -105,6 +128,8 @@ public class TouchManager : MonoBehaviour
 
     private void Update()
     {
+        if (_isBlocked) return;
+
         if (_isTouching)
         {
             _holdTime += Time.deltaTime;

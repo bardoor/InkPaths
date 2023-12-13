@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIManager : ScriptableObject 
+public class GUIManager : MonoBehaviour 
 {
     public delegate void ButtonClickEventHandler(string buttonName);
     public static event ButtonClickEventHandler OnButtonClick;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Android.Gradle;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PathBuilder : IObservable
 {
@@ -91,6 +92,17 @@ public class PathBuilder : IObservable
 
     public void AddElement(PathElement element)
     {
+        if (_currentPath.Count > 0)
+        {
+            if (_currentPath.Last is Connection conn && element is Node node)
+            {
+                if (!conn.ConnectedNodes.Contains(node))
+                {
+                    CancelBuildingCurrentPath();
+                }
+            }
+        }
+
         // Добавить новый элемент в конец активного пути
         _currentPath.AddElement(element);
 
