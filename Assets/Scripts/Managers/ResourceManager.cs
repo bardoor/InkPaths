@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using Newtonsoft.Json;
 
 public static class ResourceManager
 {
@@ -20,6 +21,17 @@ public static class ResourceManager
     {
         string jsonText = File.ReadAllText(_audioConfigPath);
         return JObject.Parse(jsonText);
+    }
+
+    public static string GetPathTo(string elementName, string stateName, string moment)
+    {
+        if (_audioConfig == null || _audioConfig[elementName] == null || _audioConfig[elementName][stateName] == null || _audioConfig[elementName][stateName][moment] == null)
+        {
+            return null;
+        }
+
+        //return JsonConvert.SerializeObject(_audioConfig[elementName][stateName][moment]);
+        return _audioConfig[elementName][stateName][moment].ToString().Trim();
     }
 
     public static AudioClip LoadSound(string elementName, string stateName, string moment)
@@ -40,6 +52,6 @@ public static class ResourceManager
         {
             Debug.LogError($"Failed to load audio clip: {elementName}/{stateName}/{moment}");
         }
-        return clip;
+        return Resources.Load<AudioClip>("Audio\\Music\\The Lost Song");
     }
 }
