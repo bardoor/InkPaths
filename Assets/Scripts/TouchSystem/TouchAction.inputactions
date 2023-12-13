@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "TouchPhase",
-                    "type": "Value",
-                    "id": "6ed8d0ca-ce5e-43f3-bf55-466680a3daa9",
-                    "expectedControlType": "Touch",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "TouchPress",
                     "type": "Button",
                     "id": "970ae053-7e3a-46b9-bbac-3c06a2702f9d",
@@ -38,7 +29,7 @@
                     "id": "2e3a8001-9b7d-41a2-83ea-3e79345a9f55",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold(duration=3)",
+                    "interactions": "Hold(duration=5)",
                     "initialStateCheck": true
                 }
             ],
@@ -51,17 +42,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3f9fd971-3383-4324-b3e9-72784d09b514",
-                    "path": "<Touchscreen>/primaryTouch/phase",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TouchPhase",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

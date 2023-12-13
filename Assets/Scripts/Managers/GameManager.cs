@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour, IObserver
 
     public void ProcessEvent(IEvent e)
     {
-        if (e is CancelledBuildingPath)
+        if (e is CancelledBuildingPath || e is FinishedBuildingPath)
         {
             _touchManager.StopTouching();
         }
