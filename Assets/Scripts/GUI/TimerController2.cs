@@ -47,6 +47,7 @@ public class TimerController2 : MonoBehaviour
                 Debug.Log("Timer's expired");
                 OpenLossPanel();
                 //gameObject.SetActive(false);
+                PathBuilder.Instance.ClearCompletePaths();
             }
         }
     }
