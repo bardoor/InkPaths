@@ -92,6 +92,9 @@ public class PathBuilder : IObservable
         // Добавить новый элемент в конец активного пути
         _currentPath.AddElement(element);
 
+        // Уведомить слушателей, что в путь был добавлен новый элемент
+        NotifyObservers(new AddedNewPathElement(element));
+
         // Если активный путь является законченным путем...
         if (IsFinishedPath())
         {
@@ -137,8 +140,6 @@ public class PathBuilder : IObservable
 
     public void DestroyPathThatHas(PathElement element)
     {
-        Debug.Log("PathBuilder::DestroyPathThatHas is called");
-
         InkPath needed = GetCompletePathThatHas(element);
         if (needed == null)
         {
@@ -157,6 +158,8 @@ public class PathBuilder : IObservable
                 pathElement.ChangeState(new UnpaintableState());
             }
         }
+
+        NotifyObservers(new RemovedPath());
     }
 
     public void AddObserver(IObserver o) => _observers.Add(o);
