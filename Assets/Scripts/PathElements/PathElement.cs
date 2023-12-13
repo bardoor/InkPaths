@@ -36,7 +36,10 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
         }
     }
 
-    public virtual void Subscribe(IStateChangeListener listener) => _listeners.Add(listener);
+    public virtual void Subscribe(IStateChangeListener listener)
+    {
+        _listeners.Add(listener);
+    }
 
     public virtual void Unsubscribe(IStateChangeListener listener) => _listeners.Remove(listener);
 

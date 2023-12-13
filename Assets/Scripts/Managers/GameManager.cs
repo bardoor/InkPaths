@@ -34,11 +34,17 @@ public class GameManager : MonoBehaviour, IObserver
         InitTouchManager();
         InitDBManager();
         PathBuilder.Instance.AddObserver(this);
+
+        LevelManager.OnLevelStarted += OnLevelStarted;
     }
 
-    private void StartLevel(int index)
+    private void StartLevel(int levelIndex)
     {
-        _levelManager.StartLevel(index);
+        _levelManager.StartLevel(levelIndex);
+    }
+
+    private void OnLevelStarted(int levelIndex)
+    {
         InitAudioManager();
     }
 
@@ -97,5 +103,12 @@ public class GameManager : MonoBehaviour, IObserver
     private void OnSceneChanged(Scene scene, LoadSceneMode mode)
     {
         InitGuiManager();
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneChanged;
+
+        // Отписываемся от события начала уровня
+        LevelManager.OnLevelStarted -= OnLevelStarted;
     }
 }

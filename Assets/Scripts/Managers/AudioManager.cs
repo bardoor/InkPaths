@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
 {
     [SerializeField] private AudioClip _currentSound;
     [SerializeField] private AudioClip _currentMusic;
-    private PathElement[] _auditionElements;
+    public List<PathElement> _auditionElements = new List<PathElement>();
     private AudioSource _musicSource;
     private AudioSource _soundSource;
 
@@ -27,11 +27,18 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
 
     private void SubscribeToElements(PathElement[] auditionElements)
     {
+        Debug.LogAssertion($"{auditionElements.Length}");
+        foreach(var el in auditionElements)
+        {
+            Debug.Log($"{el.gameObject.name}");
+        }
+
         foreach (PathElement element in auditionElements)
         {
-            element.Subscribe(this);
+            var el = element.GetComponent<PathElement>();
+            el.Subscribe(this);
+            _auditionElements.Add(el);
         }
-        _auditionElements = auditionElements;
     }
 
     public void OnStateEnter(IStateChangeObservable element, State newState)
@@ -41,9 +48,11 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
         string stateName = newState.GetType().Name;
 
         _soundSource.clip = ResourceManager.LoadSound(elementName, stateName, moment);
-        Debug.LogAssertion($"~~~Audio Manager~~~~\nHell yeah {elementName} changed to {stateName} I will play {_soundSource.clip.name}");
-
-        PlaySound();
+        if (_soundSource.clip != null)
+        {
+            Debug.LogAssertion($"~~~Audio Manager~~~~\nHell yeah {elementName} changed to {stateName} I will play {_soundSource.clip.name}");
+            PlaySound();
+        }
     }
 
     private void PlaySound()

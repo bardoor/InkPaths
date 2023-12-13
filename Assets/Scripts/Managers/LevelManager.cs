@@ -8,7 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour 
 {
+    public static event Action<int> OnLevelStarted;
+
     private GameObject _currentLevel;
+    private int _levelNumber;
 
     private float topMarginPercentage = 5f;
 
@@ -25,6 +28,7 @@ public class LevelManager : MonoBehaviour
     public void StartLevel(int number)
     {
         _currentLevel = ResourceManager.LoadLevel(number);
+        _levelNumber = number;
         if (_currentLevel == null)
         {
             Debug.Log($"Can't load Level_{number}! It was not found!!!");
@@ -32,18 +36,6 @@ public class LevelManager : MonoBehaviour
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MainGameProcess"))
         {
             SceneManager.LoadScene("MainGameProcess");
-        }
-
-        GameObject canvasObject = GameObject.Find("Canvas");
-
-        if (canvasObject != null)
-        {
-            GameObject instantiatedPrefab = Instantiate(_currentLevel, Vector3.zero, Quaternion.identity);
-            instantiatedPrefab.transform.SetParent(canvasObject.transform, false);
-        }
-        else
-        {
-            Debug.LogError("Canvas object not found in the scene");
         }
     }
 
@@ -64,7 +56,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Canvas object not found in the scene. Make sure it's named 'Canvas'.");
             }
+            OnLevelStarted?.Invoke(_levelNumber);
         }
-
     }
 }

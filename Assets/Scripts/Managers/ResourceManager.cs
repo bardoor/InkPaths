@@ -24,10 +24,21 @@ public static class ResourceManager
 
     public static AudioClip LoadSound(string elementName, string stateName, string moment)
     {
-        AudioClip clip = Resources.Load<AudioClip>(_audioConfig[elementName][stateName][moment].ToString());
+        if (_audioConfig == null || _audioConfig[elementName] == null || _audioConfig[elementName][stateName] == null || _audioConfig[elementName][stateName][moment] == null)
+        {
+            return null;
+        }
+
+        string audioPath = _audioConfig[elementName][stateName][moment].ToString();
+        if (string.IsNullOrEmpty(audioPath))
+        {
+            return null;
+        }
+
+        AudioClip clip = Resources.Load<AudioClip>(audioPath);
         if (clip == null)
         {
-            Debug.LogError($"Can not load {elementName}/{stateName}/{moment}!");
+            Debug.LogError($"Failed to load audio clip: {elementName}/{stateName}/{moment}");
         }
         return clip;
     }
