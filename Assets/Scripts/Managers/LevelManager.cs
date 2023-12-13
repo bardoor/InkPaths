@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour {
 
     public void StartLevel(int number)
     {
-        EndLevel();
         _currentLevel = ResourceManager.LoadLevel(number);
         if (_currentLevel == null)
         {
@@ -68,13 +67,12 @@ public class LevelManager : MonoBehaviour {
                 Debug.LogError("Canvas object not found in the scene. Make sure it's named 'Canvas'.");
             }
         }
+
     }
 
     private void EndLevel()
     {
-        Destroy(_currentLevel);
-        Debug.Log("Ended level");
-        _currentLevel = null;
+        DestroyImmediate(_currentLevel, true);
     }
 
 }

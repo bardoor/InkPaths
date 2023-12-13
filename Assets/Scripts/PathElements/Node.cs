@@ -28,12 +28,12 @@ public class Node : PathElement
         foreach (Collider2D otherCollider in overlappedColliders)
         {
             Connection interconnection = otherCollider.GetComponent<Connection>();
-            _connections.Add(interconnection);
-            interconnection.AddNode(GetComponent<Node>());
+            if (interconnection != null)
+            {
+                _connections.Add(interconnection);
+                interconnection.AddNode(GetComponent<Node>());
+            }
         }
-
-        // Debug.LogAssertion($"~~~~~~{gameObject.name}~~~~~~");
-        // _connections.ToList().ForEach(element => Debug.Log((element)));
     }
 
     private void Awake()

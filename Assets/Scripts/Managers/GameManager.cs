@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneChanged;
         InitLevelManager();
         InitGuiManager();
         InitTouchManager();
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void InitGuiManager()
     {
-        _guiManager = new GUIManager();
+        _guiManager = ScriptableObject.CreateInstance<GUIManager>();
         GUIManager.OnButtonClick += HandleButtonClick;
     }
 
@@ -83,5 +84,10 @@ public class GameManager : MonoBehaviour, IObserver
         {
             _touchManager.StopTouching();
         }
+    }
+
+    private void OnSceneChanged(Scene scene, LoadSceneMode mode)
+    {
+        InitGuiManager();
     }
 }
