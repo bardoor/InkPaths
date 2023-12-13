@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour, IObserver
     private static LevelManager _levelManager;
     private static GUIManager _guiManager;
     private static TouchManager _touchManager;
+    private static readonly int _lastUncompletedLevel = 1;
 
     private void Awake()
     {
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour, IObserver
     {
         if (buttonName == "StartButton")
         {
-            StartLevel(1);
+            StartLevel(_lastUncompletedLevel);
         }
         else if (buttonName == "LevelsButton")
         {

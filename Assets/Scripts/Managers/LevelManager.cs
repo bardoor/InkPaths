@@ -6,8 +6,8 @@ using System;
 using UnityEngine.SceneManagement;
 
 
-public class LevelManager : MonoBehaviour {
-
+public class LevelManager : MonoBehaviour 
+{
     private GameObject _currentLevel;
 
     private float topMarginPercentage = 5f;
@@ -40,8 +40,6 @@ public class LevelManager : MonoBehaviour {
         {
             GameObject instantiatedPrefab = Instantiate(_currentLevel, Vector3.zero, Quaternion.identity);
             instantiatedPrefab.transform.SetParent(canvasObject.transform, false);
-
-            
         }
         else
         {
@@ -69,10 +67,4 @@ public class LevelManager : MonoBehaviour {
         }
 
     }
-
-    private void EndLevel()
-    {
-        DestroyImmediate(_currentLevel, true);
-    }
-
 }

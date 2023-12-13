@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GUIManager : ScriptableObject {
+public class GUIManager : ScriptableObject 
+{
     public delegate void ButtonClickEventHandler(string buttonName);
     public static event ButtonClickEventHandler OnButtonClick;
 
@@ -19,7 +20,6 @@ public class GUIManager : ScriptableObject {
 
     private void HandleButtonClick(string buttonName)
     {
-        Debug.Log("Button clicked: " + buttonName);
         OnButtonClick?.Invoke(buttonName);
     }
 }

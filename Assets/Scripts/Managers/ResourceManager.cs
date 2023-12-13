@@ -11,11 +11,6 @@ public static class ResourceManager
     private static readonly string _audioConfigPath = "Assets/Config/AudioConfig.json";
     private static readonly JObject _audioConfig = GetAudioConfigJson();
 
-    static ResourceManager()
-    {
-
-    }
-
     public static GameObject LoadLevel(int index)
     {
         return AssetDatabase.LoadAssetAtPath<GameObject>($"{_levelsPath}/Level_{index}.prefab");

@@ -41,6 +41,8 @@ public class AudioManager : MonoBehaviour, IStateChangeListener
         string stateName = newState.GetType().Name;
 
         _soundSource.clip = ResourceManager.LoadSound(elementName, stateName, moment);
+        Debug.LogAssertion($"~~~Audio Manager~~~~\nHell yeah {elementName} changed to {stateName} I will play {_soundSource.clip.name}");
+
         PlaySound();
     }
 
