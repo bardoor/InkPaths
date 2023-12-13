@@ -102,6 +102,22 @@ public class GameManager : MonoBehaviour, IObserver
         {
             _touchManager.StopTouching();
         }
+
+        if (e is FinishedBuildingPath finishEvent)
+        {
+            if (finishEvent.PathsCount == FindObjectsByType<InkBlob>(FindObjectsSortMode.None).Length / 2)
+            {
+                GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                foreach (GameObject obj in allObjects)
+                {
+                    if (obj.name == "WinnerPanel" && !obj.activeInHierarchy)
+                    {
+                        obj.SetActive(true);
+                    }
+                }
+            }
+
+        }
     }
 
     private void OnSceneChanged(Scene scene, LoadSceneMode mode)
