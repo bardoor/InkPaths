@@ -111,7 +111,19 @@ public class PathBuilder : IObservable
                 return true;
             }
         }
+
         return false;
+    }
+
+    public InkPath GetCompletePathThatHas(PathElement element)
+    {
+        Debug.Log("PathBuilder::GetCompletePathThatHas is called");
+        return null;
+    }
+
+    public void DestroyPathThatHas(PathElement element)
+    {
+        Debug.Log("PathBuilder::DestroyPathThatHas is called");
     }
 
     public void AddObserver(IObserver o) => _observers.Add(o);

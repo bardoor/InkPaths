@@ -4,12 +4,19 @@ using System.ComponentModel.Design;
 using System;
 using NUnit.Framework;
 using System.Collections.Generic;
+using static UnityEngine.ParticleSystem;
 
 public class TouchManager : MonoBehaviour
 {
     private TouchAction _action;
 
     private bool _isTouching = false;
+
+    private PathElement _lastPressedPathElement = null;
+
+    private double _holdTime = 0;
+
+    private double _MIN_HOLD_DURATION = 3; // в секундах
 
     private void Awake()
     {
@@ -23,7 +30,6 @@ public class TouchManager : MonoBehaviour
         _action.Touch.TouchPress.started += ctx => StartTouch(ctx);
         _action.Touch.TouchPress.canceled += ctx => EndTouch(ctx);
     }
-
 
     private void OnDisable()
     {
@@ -75,6 +81,8 @@ public class TouchManager : MonoBehaviour
     private void StartTouch(InputAction.CallbackContext ctx)
     {
         StartTouching();
+        SaveCurrentPressedPathElement();
+        ZeroHoldTime();
 
         PathElement pressed = GetCurrentPressedPathElementAt(GetCurrentPosition());
         if (pressed != null && pressed is InkBlob blob)
@@ -86,6 +94,8 @@ public class TouchManager : MonoBehaviour
     private void EndTouch(InputAction.CallbackContext ctx)
     {
         StopTouching();
+        ForgetLastPressedPathElement();
+        ZeroHoldTime();
 
         if (PathBuilder.Instance.Count > 0)
         {
@@ -97,21 +107,41 @@ public class TouchManager : MonoBehaviour
     {
         if (_isTouching)
         {
-            List<PathElement> pressed = GetCurrentPressedPathElementsAt(GetCurrentPosition());
-            foreach (var element in pressed)
+            _holdTime += Time.deltaTime;
+
+            PathElement pressed = GetCurrentPressedPathElementAt(GetCurrentPosition());
+            if (pressed != null)
             {
-                element.HandleTouch();
+                if (pressed != _lastPressedPathElement)
+                {
+                    ForgetLastPressedPathElement();
+                }
+                else if (pressed is InkBlob
+                    && PathBuilder.Instance.BelongsToAnyCompletePath(pressed)
+                    && GetHoldTime() >= _MIN_HOLD_DURATION)
+                {
+                    PathBuilder.Instance.DestroyPathThatHas(pressed);
+                    StopTouching();
+                    return;
+                }
+
+                pressed.HandleTouch();
             }
         }
     }
 
-    public void StartTouching()
-    {
-        _isTouching = true;
+    public void StartTouching() => _isTouching = true;
+
+    public void StopTouching() {
+        _isTouching = false;
+        ZeroHoldTime();
     }
 
-    public void StopTouching()
-    {
-        _isTouching = false;
-    }
+    private void SaveCurrentPressedPathElement() => _lastPressedPathElement = GetCurrentPressedPathElementAt(GetCurrentPosition());
+
+    private void ForgetLastPressedPathElement() => _lastPressedPathElement = null;
+
+    private void ZeroHoldTime() => _holdTime = 0;
+
+    private double GetHoldTime() => _holdTime;
 }
