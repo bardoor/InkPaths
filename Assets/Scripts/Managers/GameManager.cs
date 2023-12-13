@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour, IObserver
     {
         if (buttonName == "StartButton")
         {
-            StartLevel(_lastUncompletedLevel);
+            StartLevel(LevelManager.levelNumber);
         }
         else if (buttonName == "LevelsButton")
         {
@@ -89,6 +89,10 @@ public class GameManager : MonoBehaviour, IObserver
         else if (buttonName == "ExitButton")
         {
             Application.Quit();
+        }
+        else if (buttonName.StartsWith("Level "))
+        {
+            StartLevel((buttonName[buttonName.Length - 1] - '0'));
         }
     }
 

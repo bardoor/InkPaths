@@ -8,7 +8,7 @@ public class PauseBlurPanelController : MonoBehaviour
     
     void Start()
     {
-        mainGamePanel = GameObject.Find("Level_1(Clone)");
+        mainGamePanel = GameObject.Find($"Level_{LevelManager.levelNumber}(Clone)");
         if (mainGamePanel != null)
         {
             mainGamePanel.transform.SetSiblingIndex(this.transform.GetSiblingIndex());

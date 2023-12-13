@@ -11,9 +11,9 @@ public class LevelManager : MonoBehaviour
     public static event Action<int> OnLevelStarted;
 
     private GameObject _currentLevel;
-    private int _levelNumber;
-
-    private float topMarginPercentage = 5f;
+    public static int levelNumber = 1;
+    private float[] topMarginPercentages = new float[] { 5f, 25f };
+    private float currentTopMargin = 5f;
 
     private void OnEnable()
     {
@@ -28,7 +28,8 @@ public class LevelManager : MonoBehaviour
     public void StartLevel(int number)
     {
         _currentLevel = ResourceManager.LoadLevel(number);
-        _levelNumber = number;
+        levelNumber = number;
+        currentTopMargin = topMarginPercentages[levelNumber - 1];
         if (_currentLevel == null)
         {
             Debug.Log($"Can't load Level_{number}! It was not found!!!");
@@ -47,7 +48,7 @@ public class LevelManager : MonoBehaviour
 
             if (canvasObject != null && _currentLevel != null)
             {
-                float offsetY = Screen.height * (topMarginPercentage / 100f);
+                float offsetY = Screen.height * (currentTopMargin / 100f);
                 GameObject level = Instantiate(_currentLevel, Vector3.zero, Quaternion.identity, canvasObject.transform);
                 RectTransform levelRectTransform = level.GetComponent<RectTransform>();
                 levelRectTransform.anchoredPosition = new Vector2(0f, -offsetY);
@@ -56,7 +57,7 @@ public class LevelManager : MonoBehaviour
             {
                 Debug.LogError("Canvas object not found in the scene. Make sure it's named 'Canvas'.");
             }
-            OnLevelStarted?.Invoke(_levelNumber);
+            OnLevelStarted?.Invoke(levelNumber);
         }
     }
 }
