@@ -8,7 +8,7 @@ using TMPro;
 public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 {
     protected StateMachine _stateMachine = new StateMachine();
-    protected List<IStateChangeListener> _listeners { get; } = new List<IStateChangeListener>();
+    protected List<IStateChangeListener> _listeners = new List<IStateChangeListener>();
 
     private Color _inkColor = PathElementState.NoColor;
 
