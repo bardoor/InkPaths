@@ -12,9 +12,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
 
     private Color _inkColor = PathElementState.NoColor;
 
-    public TextMeshProUGUI _debugText;
-    public GameObject _debugTextContainer;
-
     public Color InkColor {
         get => _inkColor;
         set {
@@ -100,18 +97,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
             Debug.LogError("Image or Collider2D component not found on the GameObject.");
         }
     }
-
-    protected void InitTextDebug(int fontSize)
-    {
-        _debugTextContainer = new GameObject("TextContainer");
-        _debugTextContainer.transform.SetParent(transform, false);
-        _debugText = _debugTextContainer.AddComponent<TextMeshProUGUI>();
-
-        _debugText.fontSize = fontSize;
-        _debugText.color = Color.white;
-        _debugText.enableWordWrapping = false;
-    }
-
     // Здесь и померли когда-то
     // Славных три богатыря
     // Чтобы в коде разобраться

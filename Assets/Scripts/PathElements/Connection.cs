@@ -16,7 +16,6 @@ public class Connection : PathElement
 
     private void Awake()
     {
-        InitTextDebug(24);
         InitCollider();
         InitState();
     }

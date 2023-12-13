@@ -11,7 +11,6 @@ public class InkBlob : Node
 
     private void Awake()
     {
-        InitTextDebug(200);
         InitCollider();
         InitState();
     }

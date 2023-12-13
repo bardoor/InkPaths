@@ -41,7 +41,6 @@ public class StateMachine
             startState.Element = element;
             CurrentState = startState;
             CurrentState.Enter();
-            UpdateElementText();
             return true;
         }
         
@@ -60,7 +59,6 @@ public class StateMachine
         CurrentState.Element = _element;
         CurrentState.Enter();
         _element.ReportStateChanged();
-        UpdateElementText();
         return true;
     }
 
@@ -73,17 +71,6 @@ public class StateMachine
         CurrentState = null;
         CurrentState = newState;
         CurrentState.Element = _element;
-        UpdateElementText();
     }
 
-    private void UpdateElementText()
-    {
-        GameObject debugTextContainer = _element._debugTextContainer;
-
-        TextMeshProUGUI textMeshPro = debugTextContainer.GetComponent<TextMeshProUGUI>();
-
-        textMeshPro.text = CurrentState.ToString();
-
-        debugTextContainer.transform.localPosition = new Vector2(0.0f, 0.0f);
-    }
 }
