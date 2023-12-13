@@ -85,9 +85,9 @@ public class TouchManager : MonoBehaviour
         ZeroHoldTime();
 
         PathElement pressed = GetCurrentPressedPathElementAt(GetCurrentPosition());
-        if (pressed != null && pressed is InkBlob blob)
+        if (pressed != null && pressed is InkBlob)
         {
-            blob.HandleTouch();
+            pressed.HandleTouch();
         }
     }
 
@@ -97,9 +97,9 @@ public class TouchManager : MonoBehaviour
         ForgetLastPressedPathElement();
         ZeroHoldTime();
 
-        if (PathBuilder.Instance.Count > 0)
+        if (PathBuilder.Instance.CurrentPathElementsCount > 0)
         {
-            PathBuilder.Instance.CancelBuilding();
+            PathBuilder.Instance.CancelBuildingCurrentPath();
         }
     }
 

@@ -69,8 +69,16 @@ public class Node : PathElement
             {
                 continue;
             }
-
+            
             conn.ChangeState(new UnpaintableState());
+        }
+    }
+
+    public void ResetAnythingAround()
+    {
+        foreach (var conn in _connections)
+        {
+            conn.ResetState(new UnpaintableState());
         }
     }
 
@@ -78,9 +86,9 @@ public class Node : PathElement
     {
         // Если мы пытаемся провести путь в чернильную точку не того же цвета,
         // что и прошлый элемент пути, прекратить создание пути
-        if (PathBuilder.Instance.Count > 0 && InkColor != PathElementState.NoColor && InkColor != PathBuilder.Instance.First.InkColor)
+        if (PathBuilder.Instance.CurrentPathElementsCount > 0 && InkColor != PathElementState.NoColor && InkColor != PathBuilder.Instance.First.InkColor)
         {
-            PathBuilder.Instance.CancelBuilding();
+            PathBuilder.Instance.CancelBuildingCurrentPath();
             return;
         }
 

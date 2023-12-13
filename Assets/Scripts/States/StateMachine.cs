@@ -13,7 +13,6 @@ public class StateMachine
     // публичный, иначе не работает IsValidTransition
     public static readonly Dictionary<Type, Type[]> validStateTransitions = new()
     {
-        { typeof(PaintedState), new Type[] { typeof(UnpaintableState) } },
         { typeof(UnpaintableState), new Type[]{ typeof(PaintableState) } },
         { typeof(PaintableState), new Type[] { typeof(UnpaintableState), typeof(PaintedState) } }
     };

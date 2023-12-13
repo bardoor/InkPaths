@@ -27,9 +27,9 @@ public class InkBlob : Node
     {
         // Если мы пытаемся провести путь в чернильную точку не того же цвета,
         // что и прошлый элемент пути, прекратить создание пути
-        if (PathBuilder.Instance.Count > 0 && InkColor != PathBuilder.Instance.First.InkColor)
+        if (PathBuilder.Instance.CurrentPathElementsCount > 0 && InkColor != PathBuilder.Instance.First.InkColor)
         {
-            PathBuilder.Instance.CancelBuilding();
+            PathBuilder.Instance.CancelBuildingCurrentPath();
             return;
         }
 
@@ -37,7 +37,7 @@ public class InkBlob : Node
         {
             // Не нужно устанавалить окружающие соединения в Paintable,
             // если мы пришли в конечную чернильную точку
-            if (PathBuilder.Instance.Count == 0)
+            if (PathBuilder.Instance.CurrentPathElementsCount == 0)
             {
                 SetPaintableAround();
             }

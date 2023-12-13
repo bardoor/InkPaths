@@ -17,7 +17,9 @@ public class PathBuilder : IObservable
 
     public PathElement Last { get => _currentPath.Last; }
 
-    public int Count { get => _currentPath.Count; }
+    public int CurrentPathElementsCount { get => _currentPath.Count; }
+
+    public int CompletePathsCount { get => _paths.Count; }
 
     private PathBuilder() {
         _paths = new HashSet<InkPath>();
@@ -43,14 +45,14 @@ public class PathBuilder : IObservable
         return _currentPath.IsFinishedPath();
     }
 
-    public void CancelBuilding()
+    public void CancelBuildingCurrentPath()
     {
         foreach (var pathElement in _currentPath.PathElements)
         {
             // Если путь не завершен и длиной 1, то в нем только чернильная точка,
             // вокруг которой соединения в состоянии PaintableState, этим вызовом мы убираем
             // эти состояния
-            if (Count == 1)
+            if (CurrentPathElementsCount == 1)
             {
                 pathElement.SetUnpaintableAround();
             }
@@ -61,10 +63,15 @@ public class PathBuilder : IObservable
             }
             else
             {
-                // Это нужно чтобы сбросить PaintableState у узла, в которой ведется палец
+                // Это нужно, чтобы сбросить PaintableState у узла, в которой ведется палец
                 if (pathElement is Connection conn)
                 {
                     conn.ResetAnythingButInkBlob();
+                }
+                // Это нужно, что сбросить PaintableState у соединений, в которые может быть проведен палец
+                else if (pathElement is Node node)
+                {
+                    node.ResetAnythingAround();
                 }
 
                 pathElement.ResetState(new UnpaintableState());
@@ -117,13 +124,39 @@ public class PathBuilder : IObservable
 
     public InkPath GetCompletePathThatHas(PathElement element)
     {
-        Debug.Log("PathBuilder::GetCompletePathThatHas is called");
+        foreach (var path in _paths)
+        {
+            if (path.BelongsToPath(element))
+            {
+                return path;
+            }
+        }
+
         return null;
     }
 
     public void DestroyPathThatHas(PathElement element)
     {
         Debug.Log("PathBuilder::DestroyPathThatHas is called");
+
+        InkPath needed = GetCompletePathThatHas(element);
+        if (needed == null)
+        {
+            return;
+        }
+
+        foreach (var pathElement in needed.PathElements)
+        {
+            if (pathElement is InkBlob)
+            {
+                pathElement.ChangeState(new PaintableState());
+            }
+            else
+            {
+                pathElement.InkColor = PathElementState.NoColor;
+                pathElement.ChangeState(new UnpaintableState());
+            }
+        }
     }
 
     public void AddObserver(IObserver o) => _observers.Add(o);

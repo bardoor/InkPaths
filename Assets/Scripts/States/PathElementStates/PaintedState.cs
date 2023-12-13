@@ -7,7 +7,7 @@ public class PaintedState : PathElementState
     public override void Enter()
     {
         // Если имеется текущий путь
-        if (PathBuilder.Instance.Count > 0)
+        if (PathBuilder.Instance.CurrentPathElementsCount > 0)
         {
             // Перенять его цвет
             Element.InkColor = PathBuilder.Instance.First.InkColor; 
