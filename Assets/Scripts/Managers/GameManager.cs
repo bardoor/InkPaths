@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour, IObserver
     private static GUIManager _guiManager;
     private static TouchManager _touchManager;
     private DBManager _dbManager;
-    private static readonly int _lastUncompletedLevel = 1;
 
     private void Awake()
     {
