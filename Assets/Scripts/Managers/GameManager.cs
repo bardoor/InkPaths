@@ -1,78 +1,62 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IObserver
 {
-    private static GameManager instance;
-    private static AudioManager _audioManager;
-    private static LevelManager _levelManager;
-    private static GUIManager _guiManager;
-    private static TouchManager _touchManager;
+    private static GameManager _instance;
+    private AudioManager _audioManager;
+    private LevelManager _levelManager;
+    private GUIManager _guiManager;
+    private TouchManager _touchManager;
     private DBManager _dbManager;
+    
+    public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
     {
         if (!NeedBootstraping()) return;
 
-        instance = this;
+        _instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
     private bool NeedBootstraping()
-        => instance == null ? true : false;
+        => _instance == null ? true : false;
 
     private void Start()
     {
-        SceneManager.sceneLoaded += OnSceneChanged;
-        InitLevelManager();
-        InitGuiManager();
-        InitTouchManager();
-        InitDBManager();
+        InitManagers();
         PathBuilder.Instance.AddObserver(this);
-
-        LevelManager.OnLevelStarted += OnLevelStarted;
+        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
-    private void StartLevel(int levelIndex)
+    public IEnumerator StartLevel(int levelIndex)
     {
-        _levelManager.StartLevel(levelIndex);
+        yield return _levelManager.StartLevel(levelIndex);
     }
 
     private void OnLevelStarted(int levelIndex)
-    {
-        InitAudioManager();
-    }
-
-    private void InitAudioManager()
     {
         _audioManager = gameObject.AddComponent<AudioManager>();
         PathElement[] auditionElements = FindObjectsByType<PathElement>(FindObjectsSortMode.None);
         _audioManager.Init(auditionElements);
     }
 
-    private void InitLevelManager()
+    public void InitManagers()
     {
         _levelManager = gameObject.AddComponent<LevelManager>();
-    }
-
-    private void InitGuiManager()
-    {
         _guiManager = gameObject.AddComponent<GUIManager>();
-        GUIManager.OnButtonClick += HandleButtonClick;
-    }
-
-    private void InitTouchManager()
-    {
         _touchManager = gameObject.AddComponent<TouchManager>();
-    }
-
-    private void InitDBManager()
-    {
         _dbManager = gameObject.AddComponent<DBManager>();
+
+        GUIManager.OnButtonClick += HandleButtonClick;
+        LevelManager.OnLevelStarted += OnLevelStarted;
     }
 
     private void HandleButtonClick(string buttonName)
     {
+        Debug.Log(buttonName);
         if (buttonName == "StartButton")
         {
             StartLevel(LevelManager.levelNumber);
@@ -89,7 +73,7 @@ public class GameManager : MonoBehaviour, IObserver
         {
             int index = buttonName[buttonName.Length - 1] - '0';
             if (!(index == 1 || index == 2)) return;
-            StartLevel(index);
+            StartCoroutine(StartLevel(index));
         }
     }
 
@@ -140,7 +124,11 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void OnSceneChanged(Scene scene, LoadSceneMode mode)
     {
-        InitGuiManager();
+        Debug.Log($"Scene {scene.name}");
+        if (_guiManager == null)
+            _guiManager = gameObject.AddComponent<GUIManager>();
+        _guiManager = gameObject.GetComponent<GUIManager>();   
+        GUIManager.OnButtonClick += HandleButtonClick;
     }
     private void OnDestroy()
     {

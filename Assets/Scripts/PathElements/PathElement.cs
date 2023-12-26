@@ -101,4 +101,6 @@ public abstract class PathElement : MonoBehaviour, IStateChangeObservable
     // Славных три богатыря
     // Чтобы в коде разобраться
     // Надо копоти подда..
+    public PathElementState GetState() { return _stateMachine.CurrentState; }
+
 }

@@ -8,6 +8,7 @@
         "Unity.TextMeshPro"
     ],
     "includePlatforms": [
+        "Android",
         "Editor"
     ],
     "excludePlatforms": [],
