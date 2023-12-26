@@ -1,3 +1,25 @@
 {
-	"name": "GameAssembly"
+    "name": "GameAssembly",
+    "rootNamespace": "",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.TextMeshPro",
+        "Unity.VisualScripting.Core",
+        "Unity.AdaptivePerformance.Samsung.Android"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Unity.Plastic.Antlr3.Runtime.dll",
+        "Newtonsoft.Json.dll",
+        "Mono.Data.Sqlite.dll",
+        "nunit.framework.dll",
+        "Unity.VisualScripting.Antlr3.Runtime.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
