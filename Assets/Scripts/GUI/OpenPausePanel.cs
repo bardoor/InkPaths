@@ -16,7 +16,7 @@ public class OpenPausePanel : MonoBehaviour
     public Image star_3;
     public Slider timer;
 
-    private void StarController()
+    public void StarController()
     {
         if (timer.value / timer.maxValue < 0.25f)
         {

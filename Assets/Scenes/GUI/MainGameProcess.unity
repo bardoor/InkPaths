@@ -822,7 +822,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 624605029}
         m_TargetAssemblyTypeName: PanelsController, Assembly-CSharp
         m_MethodName: UnclickableButtons
@@ -834,7 +834,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 624605029}
         m_TargetAssemblyTypeName: PanelsController, Assembly-CSharp
         m_MethodName: ChoseAnimation
@@ -846,7 +846,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &120692511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4140,7 +4140,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 403675565}
         m_TargetAssemblyTypeName: OpenPausePanel, Assembly-CSharp
         m_MethodName: ChoseAnimaion
@@ -4152,7 +4152,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 403675565}
         m_TargetAssemblyTypeName: OpenPausePanel, Assembly-CSharp
         m_MethodName: UnclickableButtons
@@ -4164,7 +4164,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &870965338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8359,7 +8359,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 1099924599}
         m_TargetAssemblyTypeName: PanelsController, Assembly-CSharp
         m_MethodName: ChoseAnimation
@@ -8371,7 +8371,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1790476266
 MonoBehaviour:
   m_ObjectHideFlags: 0

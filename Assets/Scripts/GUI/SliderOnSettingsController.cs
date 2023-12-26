@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SliderOnSettingsController : MonoBehaviour
@@ -46,5 +45,10 @@ public class SliderOnSettingsController : MonoBehaviour
             buttonMedium.SetActive(false);
             buttonOff.SetActive(true);
         }
+    }
+
+    public float getSliderValue()
+    {
+        return  _sliderValue;
     }
 }
