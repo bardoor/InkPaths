@@ -100,4 +100,10 @@ public class Node : PathElement
             SetPaintableAround();
         }
     }
+
+    public HashSet<Connection> Connections()
+    {
+        return _connections;
+    }
+
 }

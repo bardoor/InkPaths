@@ -97,4 +97,6 @@ public class Connection : PathElement
         // т.к. у этой точки уже состояние PaintableState
         SetPaintableAround();
     }
+
+    
 }

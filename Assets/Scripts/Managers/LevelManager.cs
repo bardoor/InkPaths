@@ -25,28 +25,42 @@ public class LevelManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void StartLevel(int number)
+    public IEnumerator StartLevel(int number)
     {
         _currentLevel = ResourceManager.LoadLevel(number);
         levelNumber = number;
         currentTopMargin = topMarginPercentages[levelNumber - 1];
+
         if (_currentLevel == null)
         {
             Debug.Log($"Can't load Level_{number}! It was not found!!!");
         }
+
         if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("MainGameProcess"))
         {
-            SceneManager.LoadScene("MainGameProcess");
+            yield return SceneManager.LoadSceneAsync("MainGameProcess");
         }
+
+        yield return null;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainGameProcess")
+        if (scene.name == "MainGameProcess" && _currentLevel != null)
         {
-            GameObject canvasObject = GameObject.Find("Canvas");
+            GameObject[] objs = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
 
-            if (canvasObject != null && _currentLevel != null)
+            GameObject canvasObject = null;
+
+            for (int i = 0; i < objs.Length; i++)
+            {
+                if (objs[i].name == "Canvas")
+                {
+                    canvasObject = objs[i];
+                }
+            }
+            
+            if (canvasObject != null)
             {
                 float offsetY = Screen.height * (currentTopMargin / 100f);
                 GameObject level = Instantiate(_currentLevel, Vector3.zero, Quaternion.identity, canvasObject.transform);
@@ -55,7 +69,7 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Canvas object not found in the scene. Make sure it's named 'Canvas'.");
+                Debug.LogError($"Objs found: {objs.Length}. Scene is {scene.name}. Canvas object not found in the scene. Make sure it's named 'Canvas'.");
             }
             OnLevelStarted?.Invoke(levelNumber);
         }

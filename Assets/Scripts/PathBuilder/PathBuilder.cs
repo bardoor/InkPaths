@@ -193,4 +193,9 @@ public class PathBuilder : IObservable
     {
         _currentPath.PathElements.ForEach(element => Debug.Log(element.gameObject.name));
     }
+
+    public void Clear()
+    {
+        _currentPath.Clear();
+    }
 }
