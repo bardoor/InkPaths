@@ -24,7 +24,7 @@ public class TestSuite
         GameManager gm = GameObject.FindFirstObjectByType<GameManager>();
 
         gm.InitManagers();
-        yield return gm.StartLevel(1);
+        yield return gm.StartLevel(levelNumber);
     }
 
     [UnityTest]
