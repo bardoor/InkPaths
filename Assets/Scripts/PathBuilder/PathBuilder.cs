@@ -101,6 +101,10 @@ public class PathBuilder : IObservable
                     CancelBuildingCurrentPath();
                 }
             }
+            else if (_currentPath.Last is Node && element is not Connection)
+            {
+                CancelBuildingCurrentPath();
+            }
         }
 
         // Добавить новый элемент в конец активного пути
