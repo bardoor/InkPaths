@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IObserver
 {
     private static GameManager _instance;
-    private static AudioManager _audioManager;
-    private static LevelManager _levelManager;
-    private static GUIManager _guiManager;
-    private static TouchManager _touchManager;
+    private AudioManager _audioManager;
+    private LevelManager _levelManager;
+    private GUIManager _guiManager;
+    private TouchManager _touchManager;
     private DBManager _dbManager;
     
     public static GameManager Instance { get { return _instance; } }
@@ -26,11 +26,9 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void Start()
     {
-        SceneManager.sceneLoaded += OnSceneChanged;
         InitManagers();
         PathBuilder.Instance.AddObserver(this);
-
-        LevelManager.OnLevelStarted += OnLevelStarted;
+        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
     public IEnumerator StartLevel(int levelIndex)
@@ -53,10 +51,12 @@ public class GameManager : MonoBehaviour, IObserver
         _dbManager = gameObject.AddComponent<DBManager>();
 
         GUIManager.OnButtonClick += HandleButtonClick;
+        LevelManager.OnLevelStarted += OnLevelStarted;
     }
 
     private void HandleButtonClick(string buttonName)
     {
+        Debug.Log(buttonName);
         if (buttonName == "StartButton")
         {
             StartLevel(LevelManager.levelNumber);
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour, IObserver
         {
             int index = buttonName[buttonName.Length - 1] - '0';
             if (!(index == 1 || index == 2)) return;
-            StartLevel(index);
+            StartCoroutine(StartLevel(index));
         }
     }
 
@@ -124,7 +124,10 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void OnSceneChanged(Scene scene, LoadSceneMode mode)
     {
-        _guiManager = gameObject.AddComponent<GUIManager>();
+        Debug.Log($"Scene {scene.name}");
+        if (_guiManager == null)
+            _guiManager = gameObject.AddComponent<GUIManager>();
+        _guiManager = gameObject.GetComponent<GUIManager>();   
         GUIManager.OnButtonClick += HandleButtonClick;
     }
     private void OnDestroy()
