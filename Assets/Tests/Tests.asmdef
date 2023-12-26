@@ -7,6 +7,7 @@
         "GameAssembly"
     ],
     "includePlatforms": [
+        "Android",
         "Editor"
     ],
     "excludePlatforms": [],
