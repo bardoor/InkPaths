@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour, IObserver
         Debug.Log(buttonName);
         if (buttonName == "StartButton")
         {
-            StartLevel(LevelManager.levelNumber);
+            StartCoroutine(StartLevel(LevelManager.levelNumber));
         }
         else if (buttonName == "LevelsButton")
         {
