@@ -27,7 +27,13 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator StartLevel(int number)
     {
+        if (number > ResourceManager.LevelCount()) 
+            number = ResourceManager.LevelCount();
+
+        Debug.Log($"Loading {number} level");
+
         _currentLevel = ResourceManager.LoadLevel(number);
+        Debug.Log($"{_currentLevel} is cur level");
         levelNumber = number;
         currentTopMargin = topMarginPercentages[levelNumber - 1];
 
@@ -42,6 +48,11 @@ public class LevelManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public void NextLevel()
+    {
+        StartCoroutine(StartLevel(levelNumber + 1));
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

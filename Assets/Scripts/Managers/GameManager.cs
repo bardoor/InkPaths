@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour, IObserver
             if (!(index == 1 || index == 2)) return;
             StartCoroutine(StartLevel(index));
         }
+        else if (buttonName == "Play")
+        {
+            _levelManager.NextLevel();
+        }
     }
 
     private void Update()

@@ -7,12 +7,23 @@ public class GUIManager : MonoBehaviour
     public delegate void ButtonClickEventHandler(string buttonName);
     public static event ButtonClickEventHandler OnButtonClick;
 
+    private bool isSubscribed = false;
+
     private void Awake()
     {
-        // Подписываемся на событие изменения сцены
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        // Подписываемся на событие изменения сцены только, если еще не подписаны
+        if (!isSubscribed)
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            isSubscribed = true;
+        }
 
         // Вызываем метод для поиска кнопок на текущей сцене
+        SetupButtonListeners();
+    }
+
+    private void Update()
+    {
         SetupButtonListeners();
     }
 
@@ -23,14 +34,18 @@ public class GUIManager : MonoBehaviour
 
     private void SetupButtonListeners()
     {
-        Button[] buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
-        foreach (Button button in buttons)
+        Object[] buttons = Resources.FindObjectsOfTypeAll(typeof(Button));
+        foreach (Object obj in buttons)
         {
-            string buttonName = button.gameObject.name;
+            var btn = obj as Button;
+            if (btn == null) 
+                continue;
+            
+            string buttonName = btn.gameObject.name;
             // Удаляем старый обработчик, чтобы избежать накопления при каждой смене сцены
-            button.onClick.RemoveAllListeners();
+            btn.onClick.RemoveAllListeners();
             // Добавляем новый обработчик
-            button.onClick.AddListener(() => HandleButtonClick(buttonName));
+            btn.onClick.AddListener(() => HandleButtonClick(buttonName));
         }
     }
 
