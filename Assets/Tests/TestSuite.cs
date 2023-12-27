@@ -78,7 +78,7 @@ public class TestSuite
     public IEnumerator TestInkBlobTouched()
     {
         yield return LoadLevel(1);
-
+        PathBuilder.Instance.Clear();
         Node[] blobs = GameObject.FindObjectsByType<InkBlob>(FindObjectsSortMode.None);
 
         foreach (InkBlob blob in blobs)
@@ -86,7 +86,9 @@ public class TestSuite
             blob.HandleTouch();
             Type realState = blob.GetState().GetType();
             Type desiredState = typeof(PaintedState);
-            PathBuilder.Instance.ClearCompletePaths();
+            Assert.AreEqual(desiredState, realState); 
+
+            PathBuilder.Instance.Clear();
         }
     }
 
@@ -105,32 +107,160 @@ public class TestSuite
             {
                 Type realState = con.GetState().GetType();
                 Type desiredState = typeof(PaintableState);
-                Assert.AreEqual(realState, desiredState);
+                Assert.AreEqual(desiredState, realState);
             }
             PathBuilder.Instance.Clear();
         }
     }
 
     [UnityTest]
-    public IEnumerator TestNodeStateOnConnectionTouch()
+    public IEnumerator TestNodeStateOnTouch()
     {
         yield return LoadLevel(1);
 
-        Node[] blobs = GameObject.FindObjectsByType<InkBlob>(FindObjectsSortMode.None);
+        PathBuilder.Instance.Clear();
 
-        foreach (InkBlob blob in blobs)
+        Node[] nodes = GameObject.FindObjectsByType<Node>(FindObjectsSortMode.None);
+
+        foreach (Node node in nodes)
         {
-            blob.HandleTouch();
-            var cons = blob.Connections();
-            foreach (Connection con in cons)
-            {
-                con.HandleTouch();
-                Node endNode = con.ConnectedNodes.Find(node => node != blob);
+            node.HandleTouch();
 
-                if (endNode.GetType() != typeof(InkBlob))
-                    Assert.AreEqual(endNode.GetState().GetType(), typeof(PaintableState));
+            if (node.GetType() == typeof(Node))
+            {
+                Assert.AreEqual(typeof(UnpaintableState), node.GetState().GetType());
             }
-            PathBuilder.Instance.Clear();
+            else
+            {
+                Assert.AreEqual(typeof(PaintedState), node.GetState().GetType());
+                PathBuilder.Instance.Clear();
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestNodeResetAround()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Node[] nodes = GameObject.FindObjectsByType<Node>(FindObjectsSortMode.None);
+
+        foreach (Node node in nodes)
+        {
+            node.ResetAnythingAround();
+            foreach (Connection con in node.Connections())
+            {
+                Assert.AreEqual(typeof(UnpaintableState), con.GetState().GetType());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestConnectionResetAround()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Connection[] cons = GameObject.FindObjectsByType<Connection>(FindObjectsSortMode.None);
+
+        foreach (Connection con in cons)
+        {
+            con.ResetAnythingButInkBlob();
+            foreach (Node node in con.ConnectedNodes)
+            {
+                if (node is InkBlob)
+                    Assert.AreEqual(typeof(PaintableState), node.GetState().GetType());
+                else
+                    Assert.AreEqual(typeof(UnpaintableState), node.GetState().GetType());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestNodeSetPaintableAround()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Node[] nodes = GameObject.FindObjectsByType<Node>(FindObjectsSortMode.None);
+
+        foreach (Node node in nodes)
+        {
+            node.SetPaintableAround();
+            foreach (Connection con in node.Connections())
+            {
+                Assert.AreEqual(typeof(PaintableState), con.GetState().GetType());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestConnectionSetUnpaintableAround()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Connection[] cons = GameObject.FindObjectsByType<Connection>(FindObjectsSortMode.None);
+
+        foreach (Connection con in cons)
+        {
+            con.ResetAnythingButInkBlob();
+            foreach (Node node in con.ConnectedNodes)
+            {
+                if (node is InkBlob)
+                    Assert.AreEqual(typeof(PaintableState), node.GetState().GetType());
+                else
+                    Assert.AreEqual(typeof(UnpaintableState), node.GetState().GetType());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestConnectionSetPaintableAround()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Connection[] cons = GameObject.FindObjectsByType<Connection>(FindObjectsSortMode.None);
+
+        foreach (Connection con in cons)
+        {
+            con.SetPaintableAround();
+            foreach (Node node in con.ConnectedNodes)
+            {
+                Debug.Log($"Node {node.GetState()} {node.gameObject.name}");
+                Assert.AreEqual(typeof(PaintableState), node.GetState().GetType());
+            }
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestConnectionTouched()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Connection[] cons = GameObject.FindObjectsByType<Connection>(FindObjectsSortMode.None);
+
+        foreach (Connection con in cons)
+        {
+            con.HandleTouch();
+            Assert.AreEqual(typeof(UnpaintableState), con.GetState().GetType());
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator TestAroundOnConnectionTouched()
+    {
+        yield return LoadLevel(1);
+        PathBuilder.Instance.Clear();
+        Connection[] cons = GameObject.FindObjectsByType<Connection>(FindObjectsSortMode.None);
+
+        foreach (Connection con in cons)
+        {
+            con.HandleTouch();
+            foreach (Node node in con.ConnectedNodes)
+            {
+                if (node is InkBlob)
+                    Assert.AreEqual(typeof(PaintableState), node.GetState().GetType());
+                else
+                    Assert.AreEqual(typeof(UnpaintableState), node.GetState().GetType());
+            }
         }
     }
 }
