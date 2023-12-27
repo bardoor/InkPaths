@@ -11,3 +11,10 @@ Ink Paths - это увлекательная игра, которая захв�
 
 ## Технологии
 Игра разработана на языке C# с использованием фреймворка Unity версии 2023.1.20f1.
+
+## Скриншоты игры
+<p>
+  <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1QBIH3BKtDwVquJAvbJ9sRLwLQwtCokFg" width="30%" height="30%">
+  <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=11Ne1oodIW4nDQrrUU0tAvAxEnGI1L3kw" width="30%" height="30%">
+  <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1-WprVDipkP5_635Gj1eIxnDLYVp9mREX" width="30%" height="30%">
+</p>
