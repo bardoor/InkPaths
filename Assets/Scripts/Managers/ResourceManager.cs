@@ -5,6 +5,8 @@ using UnityEditor;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEditor.PackageManager;
+using System;
 
 public static class ResourceManager
 {
@@ -14,7 +16,16 @@ public static class ResourceManager
 
     public static GameObject LoadLevel(int index)
     {
-        return AssetDatabase.LoadAssetAtPath<GameObject>($"{_levelsPath}/Level_{index}.prefab");
+        GameObject level = null;
+        level = AssetDatabase.LoadAssetAtPath<GameObject>($"{_levelsPath}/Level_{index}.prefab");
+        return level;
+    }
+
+    public static int LevelCount()
+    {
+        int count = 1;
+        while (AssetDatabase.LoadAssetAtPath<GameObject>($"{_levelsPath}/Level_{count}.prefab") != null) { count++; }
+        return count - 1;
     }
 
     private static JObject GetAudioConfigJson()
