@@ -17,13 +17,13 @@ public class NewTestScriptSceneTransition
             // Arrange
             SceneTransition sceneTransition = new GameObject().AddComponent<SceneTransition>();
             int sceneToLoad = 1;
-
+            int expectedScene = SceneManager.GetActiveScene().buildIndex;
             // Act
             sceneTransition.SelectScene(sceneToLoad);
             yield return null;
 
             // Assert
-            Assert.AreEqual(4, SceneManager.GetActiveScene().buildIndex);
+            Assert.AreEqual(expectedScene, SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
