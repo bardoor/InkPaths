@@ -56,28 +56,34 @@ public class GameManager : MonoBehaviour, IObserver
 
     private void HandleButtonClick(string buttonName)
     {
-        Debug.Log(buttonName);
-        if (buttonName == "StartButton")
+        try
         {
-            StartCoroutine(StartLevel(LevelManager.levelNumber));
+            Debug.Log(buttonName);
+            if (buttonName == "StartButton")
+            {
+                StartCoroutine(StartLevel(LevelManager.levelNumber));
+            }
+            else if (buttonName == "LevelsButton")
+            {
+                SceneManager.LoadScene("Levels");
+            }
+            else if (buttonName == "ExitButton")
+            {
+                Application.Quit();
+            }
+            else if (buttonName.StartsWith("Level "))
+            {
+                int index = buttonName[buttonName.Length - 1] - '0';
+                if (!(index == 1 || index == 2)) return;
+                StartCoroutine(StartLevel(index));
+            }
+            else if (buttonName == "Play")
+            {
+                _levelManager.NextLevel();
+            }
         }
-        else if (buttonName == "LevelsButton")
+        catch
         {
-            SceneManager.LoadScene("Levels");
-        }
-        else if (buttonName == "ExitButton")
-        {
-            Application.Quit();
-        }
-        else if (buttonName.StartsWith("Level "))
-        {
-            int index = buttonName[buttonName.Length - 1] - '0';
-            if (!(index == 1 || index == 2)) return;
-            StartCoroutine(StartLevel(index));
-        }
-        else if (buttonName == "Play")
-        {
-            _levelManager.NextLevel();
         }
     }
 
