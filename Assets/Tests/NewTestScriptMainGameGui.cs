@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class NewTestScriptMainGameGui
 {
+    private IEnumerator LoadLevel(int levelNumber)
+    {
+        string mainMenuPath = "Assets/Scenes/MainMenu.unity";
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(mainMenuPath);
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        GameManager gm = GameObject.FindFirstObjectByType<GameManager>();
+
+        gm.InitManagers();
+        yield return gm.StartLevel(1);
+    }
+
     // Проверка при нажатии на кнопку паузы
     [UnityTest]
     public IEnumerator ClickButtonPauseTest()
     { // Arrange
-        // Загружаем нужную сцену для теста
-        EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+      // Загружаем нужную сцену для теста
+      //EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+      yield return LoadLevel(1);
 
         // Кнопки
         Button pauseButton = (GameObject.Find("ButtonPause")).GetComponent<Button>();
@@ -83,7 +102,8 @@ public class NewTestScriptMainGameGui
     public IEnumerator ClickButtonSettingsTest()
     { // Arrange
         // Загружаем нужную сцену для теста
-        EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+        //EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+        yield return LoadLevel(1);
 
         // Кнопки
         Button pauseButton = (GameObject.Find("ButtonPause")).GetComponent<Button>();
@@ -153,7 +173,8 @@ public class NewTestScriptMainGameGui
     public IEnumerator ClickButtonQuestionTest()
     { // Arrange
         // Загружаем нужную сцену для теста
-        EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+        //EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainGameProcess.unity");
+        yield return LoadLevel(1);
 
         // Кнопки
         Button pauseButton = (GameObject.Find("ButtonPause")).GetComponent<Button>();
