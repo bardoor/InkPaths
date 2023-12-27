@@ -84,5 +84,10 @@ public class LevelManager : MonoBehaviour
             }
             OnLevelStarted?.Invoke(levelNumber);
         }
+        else
+        {
+            PathBuilder.Instance.Clear();
+            PathBuilder.Instance.ClearCompletePaths();
+        }
     }
 }
