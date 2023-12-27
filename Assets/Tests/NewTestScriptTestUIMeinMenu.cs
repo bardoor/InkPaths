@@ -15,8 +15,9 @@ public class NewTestScriptTestUIMeinMenu
     [UnityTest]
     public IEnumerator ClickButtonOpenSettings()
     {
-        EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainMenu.unity");
+        //EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainMenu.unity");
         // Arrange
+       yield return SceneManager.LoadSceneAsync(0);
 
         GameObject buttonObject = GameObject.Find("SettingsButton");
         Button button = buttonObject.GetComponent<Button>();
@@ -47,7 +48,9 @@ public class NewTestScriptTestUIMeinMenu
     {
 
         // Arrange
-        EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainMenu.unity");
+        //EditorSceneManager.OpenScene("Assets/Scenes/GUI/MainMenu.unity");
+        yield return SceneManager.LoadSceneAsync(0);
+
         GameObject mainMenu = GameObject.Find("MainMenu");
         GameObject optionPanel = null;
 

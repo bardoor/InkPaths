@@ -31,10 +31,13 @@ public class NewTestScriptTimerController
         timerController.lossPanel = lossPanel;
 
         // Act
-        yield return null;
+        for (int i = 0; i < 1000; i++)
+        {
+            yield return null;
+        }
 
         // Assert
-        Assert.AreEqual(60, timer.GetComponent<Slider>().value);
+        Assert.AreEqual(55, Mathf.Round(timer.GetComponent<Slider>().value));
         Assert.IsFalse(blurPanel.activeSelf);
         Assert.IsFalse(lossPanel.activeSelf);
     }

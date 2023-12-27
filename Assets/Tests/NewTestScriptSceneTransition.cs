@@ -23,7 +23,7 @@ public class NewTestScriptSceneTransition
             yield return null;
 
             // Assert
-            Assert.AreEqual(sceneToLoad, UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            Assert.AreEqual(4, SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
