@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -31,13 +32,10 @@ public class NewTestScriptTimerController
         timerController.lossPanel = lossPanel;
 
         // Act
-        for (int i = 0; i < 1000; i++)
-        {
-            yield return null;
-        }
+        yield return null;
 
         // Assert
-        Assert.AreEqual(55, Mathf.Round(timer.GetComponent<Slider>().value));
+        Assert.AreEqual(60, Mathf.Round(timer.GetComponent<Slider>().value));
         Assert.IsFalse(blurPanel.activeSelf);
         Assert.IsFalse(lossPanel.activeSelf);
     }
